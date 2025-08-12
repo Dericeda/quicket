@@ -1,9 +1,9 @@
 .footer {
   background: var(--bg-sidebar);
   color: var(--text-light);
-  padding: 4rem 0 2rem;
+  padding: 2.5rem 0 1.5rem; /* Reduced padding by ~30% */
   margin-top: 4rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', 'Arial', sans-serif;
   position: relative;
   overflow: hidden;
 }
@@ -23,7 +23,7 @@
 .footer-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 2rem; /* Reduced gap */
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
@@ -38,19 +38,20 @@
 
 .footer-brand h3 {
   color: var(--text-light);
-  font-size: 2rem;
+  font-size: 1.8rem; /* Slightly reduced */
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Reduced margin */
   letter-spacing: 1px;
   text-transform: uppercase;
   position: relative;
+  font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 .footer-brand h3::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -8px;
+  bottom: -6px; /* Reduced */
   width: 50px;
   height: 4px;
   background: var(--secondary-color);
@@ -60,7 +61,8 @@
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.8;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem; /* Reduced margin */
+  font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 .footer-section {
@@ -70,17 +72,18 @@
 
 .footer-section h4 {
   color: var(--text-light);
-  font-size: 1.3rem;
+  font-size: 1.2rem; /* Slightly reduced */
   font-weight: 600;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.2rem; /* Reduced margin */
   position: relative;
+  font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 .footer-section h4::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -8px;
+  bottom: -6px; /* Reduced */
   width: 40px;
   height: 3px;
   background: var(--primary-color);
@@ -93,7 +96,7 @@
 }
 
 .footer-links li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem; /* Reduced margin */
 }
 
 .footer-links a {
@@ -102,6 +105,7 @@
   font-size: 1rem;
   transition: color 0.3s ease, transform 0.3s ease;
   display: inline-block;
+  font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 .footer-links a:hover {
@@ -109,23 +113,31 @@
   transform: translateX(8px);
 }
 
+/* Contact Info Container */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Reduced gap between contact items */
+}
+
 .contact-item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 1.5rem;
   font-size: 1rem;
   color: var(--text-muted);
+  font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 .contact-icon {
-  margin-right: 1rem;
+  margin-right: 0.8rem; /* Reduced margin */
   color: var(--primary-color);
-  font-size: 1.4rem;
+  font-size: 1.2rem; /* Slightly reduced */
+  flex-shrink: 0;
 }
 
 .footer-bottom {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: 2rem; /* Reduced margin */
+  padding-top: 1.5rem; /* Reduced padding */
   border-top: 1px solid var(--divider-color);
   text-align: center;
   font-size: 0.9rem;
@@ -136,6 +148,7 @@
 
 .footer-bottom p {
   margin: 0;
+  font-family: 'Roboto', 'Arial', sans-serif;
 }
 
 .footer-bottom a {
@@ -149,9 +162,14 @@
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0 1rem; /* Further reduced for mobile */
+  }
+
   .footer-container {
     flex-direction: column;
     text-align: center;
+    gap: 1.5rem; /* Reduced gap for mobile */
   }
 
   .footer-section h4::after,
@@ -162,6 +180,18 @@
 
   .contact-item {
     justify-content: center;
+  }
+
+  .contact-info {
+    gap: 0.6rem; /* Even smaller gap on mobile */
+  }
+
+  .footer-brand {
+    margin-bottom: 1rem;
+  }
+
+  .footer-section {
+    margin-bottom: 1rem;
   }
 }
 
@@ -192,13 +222,6 @@
 .footer {
   flex-shrink: 0;
   margin-top: auto;
-  /* Остальные стили футера */
-  background: var(--bg-sidebar);
-  color: var(--text-light);
-  padding: 4rem 0 2rem;
-  font-family: 'Poppins', sans-serif;
-  position: relative;
-  overflow: hidden;
 }
 
 /* Для страниц с малым количеством контента, чтобы контент занимал минимальную высоту */

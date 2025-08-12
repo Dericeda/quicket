@@ -47,47 +47,41 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <div className="header-container">
+    <header className="modern-header">
+      <div className="modern-header-container">
         {/* Logo */}
-        <div className="header-logo">
+        <div className="modern-header-logo">
           <Link to="/">
-            <img src="/logo_q.png" alt="Quicket Logo" />
-            <span className="logo-text">QUICKET</span>
+            <span className="logo-brand">QUICKET</span>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="header-nav desktop-nav">
-          <Link to="/" className="nav-link">
-            <span className="nav-icon">🏠</span>
+        <nav className="modern-header-nav">
+          <Link to="/" className="modern-nav-link">
             {t("navigation.home")}
           </Link>
-          <Link to="/events" className="nav-link">
-            <span className="nav-icon">🎭</span>
+          <Link to="/events" className="modern-nav-link">
             {t("navigation.events")}
           </Link>
 
           {user && (
             <>
-              <Link to="/notifications" className="nav-link">
-                <span className="nav-icon">🔔</span>
+              <Link to="/notifications" className="modern-nav-link">
                 {t("navigation.notifications")}
                 {unreadCount > 0 && (
-                  <span className="header-notification-badge">
+                  <span className="modern-notification-badge">
                     {unreadCount}
                   </span>
                 )}
               </Link>
-              <Link to="/profile" className="nav-link">
-                <span className="nav-icon">👤</span>
+              <Link to="/profile" className="modern-nav-link">
                 {t("sidebar.myProfile")}
               </Link>
 
               {/* Admin Panel link - only visible for admin users */}
               {user.role === "admin" && (
-                <Link to="/admin" className="nav-link">
-                  <span className="nav-icon">⚙️</span>
+                <Link to="/admin" className="modern-nav-link">
                   {t("sidebar.adminPanel")}
                 </Link>
               )}
@@ -96,28 +90,27 @@ const Header = () => {
         </nav>
 
         {/* User Actions */}
-        <div className="header-actions">
+        <div className="modern-header-actions">
           {!user ? (
-            <div className="auth-buttons">
-              <Link to="/login" className="auth-link login-link">
+            <div className="modern-auth-buttons">
+              <Link to="/login" className="modern-login-btn">
                 {t("navigation.login")}
               </Link>
-              <Link to="/register" className="auth-link register-link">
+              <Link to="/register" className="modern-signup-btn">
                 {t("navigation.register")}
               </Link>
             </div>
           ) : (
-            <div className="user-menu">
-              <div className="user-info-header">
-                <div className="user-avatar-header">
+            <div className="modern-user-menu">
+              <div className="modern-user-info">
+                <div className="modern-user-avatar">
                   {user.username ? user.username.charAt(0).toUpperCase() : "U"}
                 </div>
-                <span className="user-name-header">
+                <span className="modern-user-name">
                   {user.username || user.name || "User"}
                 </span>
               </div>
-              <button onClick={handleLogout} className="logout-button">
-                <span className="nav-icon">🚪</span>
+              <button onClick={handleLogout} className="modern-logout-button">
                 {t("navigation.logout")}
               </button>
             </div>
@@ -125,7 +118,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+        <button className="modern-mobile-toggle" onClick={toggleMobileMenu}>
           {mobileMenuOpen ? "✕" : "☰"}
         </button>
       </div>
@@ -133,18 +126,23 @@ const Header = () => {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <>
-          <div className="mobile-overlay" onClick={toggleMobileMenu}></div>
-          <nav className="mobile-nav">
-            <Link to="/" className="mobile-nav-link" onClick={toggleMobileMenu}>
-              <span className="nav-icon">🏠</span>
+          <div
+            className="modern-mobile-overlay"
+            onClick={toggleMobileMenu}
+          ></div>
+          <nav className="modern-mobile-nav">
+            <Link
+              to="/"
+              className="modern-mobile-link"
+              onClick={toggleMobileMenu}
+            >
               {t("navigation.home")}
             </Link>
             <Link
               to="/events"
-              className="mobile-nav-link"
+              className="modern-mobile-link"
               onClick={toggleMobileMenu}
             >
-              <span className="nav-icon">🎭</span>
               {t("navigation.events")}
             </Link>
 
@@ -152,42 +150,38 @@ const Header = () => {
               <>
                 <Link
                   to="/notifications"
-                  className="mobile-nav-link"
+                  className="modern-mobile-link"
                   onClick={toggleMobileMenu}
                 >
-                  <span className="nav-icon">🔔</span>
                   {t("navigation.notifications")}
                   {unreadCount > 0 && (
-                    <span className="header-notification-badge">
+                    <span className="modern-notification-badge">
                       {unreadCount}
                     </span>
                   )}
                 </Link>
                 <Link
                   to="/profile"
-                  className="mobile-nav-link"
+                  className="modern-mobile-link"
                   onClick={toggleMobileMenu}
                 >
-                  <span className="nav-icon">👤</span>
                   {t("sidebar.myProfile")}
                 </Link>
 
                 {user.role === "admin" && (
                   <Link
                     to="/admin"
-                    className="mobile-nav-link"
+                    className="modern-mobile-link"
                     onClick={toggleMobileMenu}
                   >
-                    <span className="nav-icon">⚙️</span>
                     {t("sidebar.adminPanel")}
                   </Link>
                 )}
 
                 <button
                   onClick={handleLogout}
-                  className="mobile-nav-link logout-mobile"
+                  className="modern-mobile-link modern-mobile-logout"
                 >
-                  <span className="nav-icon">🚪</span>
                   {t("navigation.logout")}
                 </button>
               </>
@@ -197,18 +191,16 @@ const Header = () => {
               <>
                 <Link
                   to="/login"
-                  className="mobile-nav-link"
+                  className="modern-mobile-link"
                   onClick={toggleMobileMenu}
                 >
-                  <span className="nav-icon">🔑</span>
                   {t("navigation.login")}
                 </Link>
                 <Link
                   to="/register"
-                  className="mobile-nav-link"
+                  className="modern-mobile-link"
                   onClick={toggleMobileMenu}
                 >
-                  <span className="nav-icon">📝</span>
                   {t("navigation.register")}
                 </Link>
               </>
