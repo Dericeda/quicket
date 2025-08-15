@@ -1,7 +1,6 @@
 // src/components/GlobalLanguageSwitcher.jsx
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ThemeToggle from '../theme/ThemeToggle';
 import '../../styles/GlobalLanguageSwitcher.css';
 
 const GlobalLanguageSwitcher = () => {
@@ -17,7 +16,6 @@ const GlobalLanguageSwitcher = () => {
   const currentLanguage = i18n.language || 'kz';
 
   return (
-    <div className="global-controls">
       <div className="global-language-switcher">
         <button 
           className="language-toggle" 
@@ -50,10 +48,6 @@ const GlobalLanguageSwitcher = () => {
           </div>
         )}
       </div>
-      
-      {/* Theme toggle component - desktop view */}
-      <ThemeToggle />
-    </div>
   );
 };
 

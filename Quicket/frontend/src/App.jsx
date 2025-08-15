@@ -7,7 +7,6 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 import Header from "./components/Layout/Header"; // Заменили Sidebar на Header
 import Footer from "./components/Layout/Footer";
-import GlobalLanguageSwitcher from "./components/Layout/GlobalLanguageSwitcher";
 
 import HomePage from "./pages/HomePage";
 import EventsPage from "./pages/EventsPage";
@@ -23,7 +22,6 @@ import "./styles/global.css";
 import "./styles/themes.css";
 import "./styles/FavoriteButton.css";
 import "./styles/StickyFooter.css";
-import "./styles/Header.css"; // Добавили стили для Header
 
 function App() {
   const { t } = useTranslation();
@@ -80,7 +78,6 @@ function App() {
     <ThemeProvider>
       <AuthContext.Provider value={{ user, login, logout }}>
         <div className="app">
-          <GlobalLanguageSwitcher />
           <Header /> {/* Заменили Sidebar на Header */}
           <div className="main-content">
             {" "}

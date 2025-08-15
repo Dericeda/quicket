@@ -1,214 +1,246 @@
-import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../../contexts/AuthContext";
-import { ThemeContext } from "../../contexts/ThemeContext";
-import apiService from "../../services/api";
+import ThemeToggle from "../theme/ThemeToggle";
+import GlobalLanguageSwitcher from "./GlobalLanguageSwitcher";
+import NotificationBadge from "./NotificationBadge";
 import "../../styles/Header.css";
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
-  const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
+  const location = useLocation();
   const navigate = useNavigate();
-  const [unreadCount, setUnreadCount] = useState(0);
+  const { user, logout } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Fetch notifications count for the badge
   useEffect(() => {
-    if (user) {
-      const fetchUnreadCount = async () => {
-        try {
-          const response = await apiService.getUnreadNotificationsCount(
-            user.id
-          );
-          if (response.success) {
-            setUnreadCount(response.count);
-          }
-        } catch (error) {
-          console.error("Error fetching unread notifications count:", error);
-        }
-      };
-
-      fetchUnreadCount();
-      // Set up interval to refresh unread count every minute
-      const interval = setInterval(fetchUnreadCount, 60000);
-      return () => clearInterval(interval);
-    }
-  }, [user]);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    setMobileMenuOpen(false);
+    navigate("/");
   };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="modern-header">
-      <div className="modern-header-container">
-        {/* Logo */}
-        <div className="modern-header-logo">
-          <Link to="/">
-            <span className="logo-brand">QUICKET</span>
-          </Link>
-        </div>
+    <>
+      <header className="modern-header">
+        <div className="modern-header-container">
+          <div className="modern-header-logo">
+            <Link to="/">
+              <div className="logo-brand">QUICKET</div>
+            </Link>
+          </div>
 
-        {/* Desktop Navigation */}
-        <nav className="modern-header-nav">
-          <Link to="/" className="modern-nav-link">
-            {t("navigation.home")}
-          </Link>
-          <Link to="/events" className="modern-nav-link">
-            {t("navigation.events")}
-          </Link>
-
-          {user && (
-            <>
-              <Link to="/notifications" className="modern-nav-link">
+          {/* Desktop Navigation */}
+          <nav className="modern-header-nav">
+            <Link
+              to="/"
+              className={`modern-nav-link ${
+                location.pathname === "/" ? "active" : ""
+              }`}
+            >
+              {t("navigation.home")}
+            </Link>
+            <Link
+              to="/events"
+              className={`modern-nav-link ${
+                location.pathname.startsWith("/events") ? "active" : ""
+              }`}
+            >
+              {t("navigation.events")}
+            </Link>
+            {user && (
+              <Link
+                to="/notifications"
+                className={`modern-nav-link ${
+                  location.pathname.startsWith("/notifications") ? "active" : ""
+                }`}
+              >
                 {t("navigation.notifications")}
-                {unreadCount > 0 && (
-                  <span className="modern-notification-badge">
-                    {unreadCount}
-                  </span>
-                )}
+                <NotificationBadge />
               </Link>
-              <Link to="/profile" className="modern-nav-link">
-                {t("sidebar.myProfile")}
-              </Link>
+            )}
+          </nav>
 
-              {/* Admin Panel link - only visible for admin users */}
-              {user.role === "admin" && (
-                <Link to="/admin" className="modern-nav-link">
-                  {t("sidebar.adminPanel")}
-                </Link>
-              )}
-            </>
-          )}
-        </nav>
+          {/* Desktop Actions */}
+          <div className="modern-header-actions">
+            {!isMobile && (
+              <>
+                <GlobalLanguageSwitcher />
+                <ThemeToggle />
+              </>
+            )}
 
-        {/* User Actions */}
-        <div className="modern-header-actions">
-          {!user ? (
-            <div className="modern-auth-buttons">
-              <Link to="/login" className="modern-login-btn">
-                {t("navigation.login")}
-              </Link>
-              <Link to="/register" className="modern-signup-btn">
-                {t("navigation.register")}
-              </Link>
-            </div>
-          ) : (
-            <div className="modern-user-menu">
-              <div className="modern-user-info">
-                <div className="modern-user-avatar">
-                  {user.username ? user.username.charAt(0).toUpperCase() : "U"}
+            {user ? (
+              <div className="modern-user-menu">
+                <div className="modern-user-info">
+                  <Link to="/profile">
+                    <div className="modern-user-avatar">
+                      {user.username
+                        ? user.username.charAt(0).toUpperCase()
+                        : "U"}
+                    </div>
+                  </Link>
+                  <Link to="/profile" className="modern-user-name">
+                    {user.username}
+                  </Link>
+                  {user.role === "admin" && (
+                    <Link to="/admin" className="modern-nav-link">
+                      {t("sidebar.adminPanel")}
+                    </Link>
+                  )}
                 </div>
-                <span className="modern-user-name">
-                  {user.username || user.name || "User"}
-                </span>
+                <button className="modern-logout-button" onClick={handleLogout}>
+                  {t("navigation.logout")}
+                </button>
               </div>
-              <button onClick={handleLogout} className="modern-logout-button">
-                {t("navigation.logout")}
-              </button>
-            </div>
-          )}
-        </div>
+            ) : (
+              <div className="modern-auth-buttons">
+                <Link to="/login" className="modern-login-btn">
+                  {t("navigation.login")}
+                </Link>
+                <Link to="/register" className="modern-signup-btn">
+                  {t("navigation.register")}
+                </Link>
+              </div>
+            )}
+          </div>
 
-        {/* Mobile Menu Button */}
-        <button className="modern-mobile-toggle" onClick={toggleMobileMenu}>
-          {mobileMenuOpen ? "✕" : "☰"}
-        </button>
-      </div>
+          {/* Mobile Menu Toggle */}
+          <button className="modern-mobile-toggle" onClick={toggleMobileMenu}>
+            {mobileMenuOpen ? "✕" : "☰"}
+          </button>
+        </div>
+      </header>
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <>
-          <div
-            className="modern-mobile-overlay"
-            onClick={toggleMobileMenu}
-          ></div>
+          <div className="modern-mobile-overlay" onClick={closeMobileMenu} />
           <nav className="modern-mobile-nav">
             <Link
               to="/"
               className="modern-mobile-link"
-              onClick={toggleMobileMenu}
+              onClick={closeMobileMenu}
             >
               {t("navigation.home")}
             </Link>
             <Link
               to="/events"
               className="modern-mobile-link"
-              onClick={toggleMobileMenu}
+              onClick={closeMobileMenu}
             >
               {t("navigation.events")}
             </Link>
 
-            {user && (
+            {user ? (
               <>
                 <Link
                   to="/notifications"
                   className="modern-mobile-link"
-                  onClick={toggleMobileMenu}
+                  onClick={closeMobileMenu}
                 >
                   {t("navigation.notifications")}
-                  {unreadCount > 0 && (
-                    <span className="modern-notification-badge">
-                      {unreadCount}
-                    </span>
-                  )}
                 </Link>
                 <Link
                   to="/profile"
                   className="modern-mobile-link"
-                  onClick={toggleMobileMenu}
+                  onClick={closeMobileMenu}
                 >
-                  {t("sidebar.myProfile")}
+                  {t("navigation.profile")}
                 </Link>
-
                 {user.role === "admin" && (
                   <Link
                     to="/admin"
                     className="modern-mobile-link"
-                    onClick={toggleMobileMenu}
+                    onClick={closeMobileMenu}
                   >
                     {t("sidebar.adminPanel")}
                   </Link>
                 )}
 
+                {/* Mobile Controls */}
+                <div
+                  style={{
+                    padding: "16px 24px",
+                    borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "16px",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <GlobalLanguageSwitcher />
+                    <ThemeToggle />
+                  </div>
+                </div>
+
                 <button
-                  onClick={handleLogout}
                   className="modern-mobile-link modern-mobile-logout"
+                  onClick={handleLogout}
                 >
                   {t("navigation.logout")}
                 </button>
               </>
-            )}
-
-            {!user && (
+            ) : (
               <>
                 <Link
                   to="/login"
                   className="modern-mobile-link"
-                  onClick={toggleMobileMenu}
+                  onClick={closeMobileMenu}
                 >
                   {t("navigation.login")}
                 </Link>
                 <Link
                   to="/register"
                   className="modern-mobile-link"
-                  onClick={toggleMobileMenu}
+                  onClick={closeMobileMenu}
                 >
                   {t("navigation.register")}
                 </Link>
+
+                {/* Mobile Controls */}
+                <div
+                  style={{
+                    padding: "16px 24px",
+                    borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "16px",
+                    }}
+                  >
+                    <GlobalLanguageSwitcher />
+                    <ThemeToggle />
+                  </div>
+                </div>
               </>
             )}
           </nav>
         </>
       )}
-    </header>
+    </>
   );
 };
 
