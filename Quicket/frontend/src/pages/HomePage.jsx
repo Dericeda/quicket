@@ -12,6 +12,25 @@ const HomePage = () => {
   const [recentEvents, setRecentEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Массив фоновых изображений
+  const backgroundImages = [
+    "https://cdn.cosmos.so/2eb2f595-4d5f-4b03-8ceb-dcd0346a1e9b?format=jpeg",
+    "https://cdn.cosmos.so/fc222248-2b51-4525-8235-38499e78a6cc?format=jpeg",
+    "https://cdn.cosmos.so/ae491fd6-725b-4b87-8d30-b3c11ceaefac?format=jpeg",
+  ];
+
+  // Автоматический слайдер
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prevSlide) =>
+        prevSlide === backgroundImages.length - 1 ? 0 : prevSlide + 1
+      );
+    }, 4000); // Меняется каждые 4 секунды
+
+    return () => clearInterval(slideInterval);
+  }, [backgroundImages.length]);
 
   useEffect(() => {
     const fetchRecentEvents = async () => {
@@ -33,15 +52,19 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-background">
-          <img
-            src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&h=800&fit=crop"
-            alt="Sports background"
-            className="hero-bg-image"
-          />
+          {/* Слайдер фоновых изображений */}
+          {backgroundImages.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Background ${index + 1}`}
+              className={`hero-bg-image ${
+                index === currentSlide ? "active" : ""
+              }`}
+            />
+          ))}
           <div className="hero-overlay"></div>
         </div>
-
-       
 
         <div className="hero-content">
           <div className="hero-text">
@@ -52,11 +75,19 @@ const HomePage = () => {
               развлечений и незабываемых впечатлений.
             </p>
           </div>
-
-        
         </div>
 
-
+        {/* Индикаторы слайдера */}
+        <div className="slider-indicators">
+          {backgroundImages.map((_, index) => (
+            <button
+              key={index}
+              className={`slider-dot ${index === currentSlide ? "active" : ""}`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Перейти к слайду ${index + 1}`}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Events Section */}
@@ -91,8 +122,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-
     </div>
   );
 };

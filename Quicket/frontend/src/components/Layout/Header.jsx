@@ -41,38 +41,47 @@ const Header = () => {
         <div className="modern-header-container">
           <div className="modern-header-logo">
             <Link to="/">
+              <img
+                src="https://raw.githubusercontent.com/Dericeda/quicket/98f9f5544a377e614229921bdfece6325d7d982f/Quicket/frontend/public/logo_q.png"
+                alt="Quicket Logo"
+                className="header-logo-image"
+              />
               <div className="logo-brand">QUICKET</div>
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - показываем кнопки только для авторизованных пользователей */}
           <nav className="modern-header-nav">
-            <Link
-              to="/"
-              className={`modern-nav-link ${
-                location.pathname === "/" ? "active" : ""
-              }`}
-            >
-              {t("navigation.home")}
-            </Link>
-            <Link
-              to="/events"
-              className={`modern-nav-link ${
-                location.pathname.startsWith("/events") ? "active" : ""
-              }`}
-            >
-              {t("navigation.events")}
-            </Link>
             {user && (
-              <Link
-                to="/notifications"
-                className={`modern-nav-link ${
-                  location.pathname.startsWith("/notifications") ? "active" : ""
-                }`}
-              >
-                {t("navigation.notifications")}
-                <NotificationBadge />
-              </Link>
+              <>
+                <Link
+                  to="/"
+                  className={`modern-nav-link ${
+                    location.pathname === "/" ? "active" : ""
+                  }`}
+                >
+                  {t("navigation.home")}
+                </Link>
+                <Link
+                  to="/events"
+                  className={`modern-nav-link ${
+                    location.pathname.startsWith("/events") ? "active" : ""
+                  }`}
+                >
+                  {t("navigation.events")}
+                </Link>
+                <Link
+                  to="/notifications"
+                  className={`modern-nav-link ${
+                    location.pathname.startsWith("/notifications")
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  {t("navigation.notifications")}
+                  <NotificationBadge />
+                </Link>
+              </>
             )}
           </nav>
 

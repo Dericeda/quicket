@@ -393,3 +393,109 @@
     padding-top: 64px;
   }
 }
+
+/* Стили для логотипа в Header */
+.modern-header-logo a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.modern-header-logo a:hover {
+  transform: scale(1.02);
+}
+
+.header-logo-image {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.header-logo-image:hover {
+  transform: scale(1.1);
+}
+
+.logo-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-color, #007bff);
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+}
+
+.modern-header-logo a:hover .logo-brand {
+  color: var(--primary-hover-color, #0056b3);
+}
+
+/* Responsive стили для мобильных устройств */
+@media (max-width: 768px) {
+  .header-logo-image {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .logo-brand {
+    font-size: 1.5rem;
+  }
+  
+  .modern-header-logo a {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo-image {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .logo-brand {
+    font-size: 1.3rem;
+  }
+  
+  .modern-header-logo a {
+    gap: 6px;
+  }
+}
+
+/* Обновленные стили для header контейнера чтобы лого выглядело хорошо */
+.modern-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 70px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.modern-header-logo {
+  flex-shrink: 0;
+}
+
+.modern-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.modern-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* Темная тема */
+[data-theme="dark"] .logo-brand {
+  color: var(--primary-color-dark, #4dabf7);
+}
+
+[data-theme="dark"] .modern-header-logo a:hover .logo-brand {
+  color: var(--primary-hover-color-dark, #74c0fc);
+}
