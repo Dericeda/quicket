@@ -42,7 +42,7 @@ const Header = () => {
           <div className="modern-header-logo">
             <Link to="/">
               <img
-                src="https://raw.githubusercontent.com/Dericeda/quicket/98f9f5544a377e614229921bdfece6325d7d982f/Quicket/frontend/public/logo_q.png"
+                src="/public/newLogo.png"
                 alt="Quicket Logo"
                 className="header-logo-image"
               />

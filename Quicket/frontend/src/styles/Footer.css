@@ -1,9 +1,9 @@
-/* Footer.css */
+/* Основные стили для footer */
 .modern-footer {
-  background: #000;
-  color: #fff;
-  padding: 0;
-  
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 45px 0 15px; /* Уменьшено с 60px 0 20px */
+  margin-top: auto;
 }
 
 .footer-content {
@@ -13,79 +13,50 @@
 }
 
 .footer-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  padding: 60px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer-brand-section {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 40px;
+  margin-bottom: 30px; /* Уменьшено с 40px */
+  flex-wrap: wrap;
 }
 
+/* Секция бренда */
 .footer-brand {
-  max-width: 400px;
+  flex: 1;
+  max-width: none;
+  min-width: 300px;
 }
 
 .brand-name {
-  font-size: 2rem;
-  font-weight: 300;
-  color: #fff;
-  margin-bottom: 20px;
+  font-size: 1.6rem; /* Уменьшено с 2rem */
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 12px; /* Уменьшено с 15px */
+  letter-spacing: 1px;
 }
 
 .brand-description {
-  color: #ccc;
-  line-height: 1.6;
-  font-size: 0.95rem;
+  font-size: 0.85rem; /* Уменьшено с 1rem */
+  line-height: 1.5; /* Уменьшено с 1.6 */
+  color: #cccccc;
+  margin: 0;
 }
 
-.footer-contact {
-  max-width: 400px;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.contact-item {
-  display: flex;
-  gap: 15px;
-  font-size: 0.9rem;
-}
-
-.contact-label {
-  color: #999;
-  min-width: 70px;
-}
-
-.contact-value {
-  color: #fff;
-}
-
-.footer-links-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
+/* Колонки footer */
 .footer-column {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
 }
 
 .column-title {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 0.95rem; /* Уменьшено с 1.1rem */
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 15px; /* Уменьшено с 20px */
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 6px; /* Уменьшено с 8px */
+  display: inline-block;
 }
 
 .footer-links {
@@ -94,156 +65,169 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* Уменьшено с 12px */
 }
 
-.footer-links li a {
-  color: #ccc;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-}
-
-.footer-links li a:hover {
-  color: #fff;
-}
-
-.social-links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.social-link {
-  color: #ccc;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.social-link:hover {
-  color: #fff;
-}
-
-.social-link.facebook:hover {
-  color: #1877f2;
-}
-
-.social-link.instagram:hover {
-  color: #e4405f;
-}
-
-.social-link.twitter:hover {
-  color: #1da1f2;
-}
-
-.social-link.youtube:hover {
-  color: #ff0000;
-}
-
-.footer-bottom {
-  padding: 30px 0;
-}
-
-.footer-bottom-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-.copyright {
-  color: #999;
-  font-size: 0.9rem;
+.footer-links li {
   margin: 0;
 }
 
-.footer-bottom-links {
-  max-width: 500px;
-  text-align: right;
+.footer-links a {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 0.8rem; /* Уменьшено с 0.95rem */
+  transition: all 0.3s ease;
+  display: block;
+  padding: 4px 0; /* Уменьшено с 5px 0 */
 }
 
-.footer-bottom-links span {
-  color: #ccc;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  font-style: italic;
+.footer-links a:hover {
+  color: #007bff;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .footer-main {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-  
-  .footer-links-section {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-  
-  .footer-bottom-content {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .footer-bottom-links {
-    text-align: left;
-    max-width: 100%;
-  }
+/* Контактная информация */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Уменьшено с 12px */
 }
 
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px; /* Уменьшено с 4px */
+  font-size: 0.8rem; /* Уменьшено с 0.95rem */
+}
+
+.contact-label {
+  font-weight: 600;
+  color: #007bff;
+  font-size: 0.75rem; /* Уменьшено с 0.9rem */
+}
+
+.contact-value {
+  color: #cccccc;
+}
+
+/* Нижняя часть footer */
+.footer-bottom {
+  border-top: 1px solid #333333;
+  padding-top: 15px; /* Уменьшено с 20px */
+}
+
+.footer-bottom-content {
+  text-align: center;
+}
+
+.copyright {
+  font-size: 0.75rem; /* Уменьшено с 0.9rem */
+  color: #888888;
+  margin: 0;
+}
+
+/* Responsive стили */
 @media (max-width: 768px) {
+  .footer-main {
+    flex-direction: column;
+    gap: 30px; /* Уменьшено с 40px */
+    text-align: left;
+  }
+  
+  .footer-brand {
+    max-width: 100%;
+    min-width: auto;
+  }
+  
+  .brand-name {
+    font-size: 1.4rem; /* Уменьшено с 1.8rem */
+  }
+  
+  .brand-description {
+    font-size: 0.8rem; /* Уменьшено с 0.95rem */
+  }
+  
+  .footer-column {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .contact-item {
+    flex-direction: row;
+    gap: 8px; /* Уменьшено с 10px */
+    align-items: flex-start;
+  }
+  
+  .contact-label {
+    min-width: 60px; /* Уменьшено с 70px */
+    flex-shrink: 0;
+  }
+  
+  .modern-footer {
+    padding: 30px 0 15px; /* Уменьшено с 40px 0 20px */
+  }
+}
+
+@media (max-width: 480px) {
   .footer-content {
     padding: 0 15px;
   }
   
   .footer-main {
-    padding: 40px 0;
-    gap: 40px;
-  }
-  
-  .footer-brand-section {
-    gap: 30px;
-  }
-  
-  .footer-links-section {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 25px; /* Уменьшено с 30px */
   }
   
   .brand-name {
-    font-size: 1.8rem;
+    font-size: 1.2rem; /* Уменьшено с 1.5rem */
+  }
+  
+  .brand-description {
+    font-size: 0.75rem; /* Уменьшено с 0.9rem */
   }
   
   .contact-item {
+    font-size: 0.75rem; /* Уменьшено с 0.9rem */
     flex-direction: column;
-    gap: 5px;
+    gap: 3px; /* Уменьшено с 4px */
   }
   
   .contact-label {
     min-width: auto;
-    font-weight: 500;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-main {
-    padding: 30px 0;
-  }
-  
-  .brand-name {
-    font-size: 1.6rem;
   }
   
   .column-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Уменьшено с 1rem */
   }
   
-  .footer-bottom {
-    padding: 20px 0;
+  .footer-links a {
+    font-size: 0.75rem; /* Уменьшено с 0.9rem */
   }
+  
+  .copyright {
+    font-size: 0.7rem; /* Уменьшено с 0.85rem */
+  }
+}
+
+/* Темная тема */
+[data-theme="dark"] .modern-footer {
+  background-color: #0f0f0f;
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-top-color: #2a2a2a;
+}
+
+[data-theme="dark"] .brand-name {
+  color: #4dabf7;
+}
+
+[data-theme="dark"] .contact-label {
+  color: #4dabf7;
+}
+
+[data-theme="dark"] .footer-links a:hover {
+  color: #4dabf7;
+}
+
+[data-theme="dark"] .footer-links a::before {
+  background-color: #4dabf7;
 }
