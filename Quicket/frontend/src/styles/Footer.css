@@ -3,7 +3,7 @@
   background-color: #1a1a1a;
   color: #ffffff;
   padding: 45px 0 15px; /* Уменьшено с 60px 0 20px */
-  margin-top: auto;
+  margin-top: 30px;
 }
 
 .footer-content {
@@ -132,36 +132,36 @@
     gap: 30px; /* Уменьшено с 40px */
     text-align: left;
   }
-  
+
   .footer-brand {
     max-width: 100%;
     min-width: auto;
   }
-  
+
   .brand-name {
     font-size: 1.4rem; /* Уменьшено с 1.8rem */
   }
-  
+
   .brand-description {
     font-size: 0.8rem; /* Уменьшено с 0.95rem */
   }
-  
+
   .footer-column {
     min-width: auto;
     width: 100%;
   }
-  
+
   .contact-item {
     flex-direction: row;
     gap: 8px; /* Уменьшено с 10px */
     align-items: flex-start;
   }
-  
+
   .contact-label {
     min-width: 60px; /* Уменьшено с 70px */
     flex-shrink: 0;
   }
-  
+
   .modern-footer {
     padding: 30px 0 15px; /* Уменьшено с 40px 0 20px */
   }
@@ -171,37 +171,37 @@
   .footer-content {
     padding: 0 15px;
   }
-  
+
   .footer-main {
     gap: 25px; /* Уменьшено с 30px */
   }
-  
+
   .brand-name {
     font-size: 1.2rem; /* Уменьшено с 1.5rem */
   }
-  
+
   .brand-description {
     font-size: 0.75rem; /* Уменьшено с 0.9rem */
   }
-  
+
   .contact-item {
     font-size: 0.75rem; /* Уменьшено с 0.9rem */
     flex-direction: column;
     gap: 3px; /* Уменьшено с 4px */
   }
-  
+
   .contact-label {
     min-width: auto;
   }
-  
+
   .column-title {
     font-size: 0.85rem; /* Уменьшено с 1rem */
   }
-  
+
   .footer-links a {
     font-size: 0.75rem; /* Уменьшено с 0.9rem */
   }
-  
+
   .copyright {
     font-size: 0.7rem; /* Уменьшено с 0.85rem */
   }
