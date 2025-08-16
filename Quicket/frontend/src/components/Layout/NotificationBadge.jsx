@@ -131,8 +131,8 @@ const NotificationBadge = () => {
       <div 
         className="notification-badge-icon" 
         onClick={() => setShowDropdown(!showDropdown)}
-      >
-        <span className="material-icons">notifications</span>
+      >пш
+        {/* <span className="material-icons">notifications</span> */}
         {unreadCount > 0 && (
           <span className="notification-badge-count">{unreadCount}</span>
         )}
