@@ -43,10 +43,10 @@ const Header = () => {
             <Link to="/">
               <img
                 src="/public/newLogo.png"
-                alt="Quicket Logo"
+                alt={t("app.name") + " " + t("header.logo")}
                 className="header-logo-image"
               />
-              <div className="logo-brand">QUICKET</div>
+              <div className="logo-brand">{t("app.name").toUpperCase()}</div>
             </Link>
           </div>
 
@@ -97,7 +97,7 @@ const Header = () => {
             {user ? (
               <div className="modern-user-menu">
                 <div className="modern-user-info">
-                  <Link to="/profile">
+                  <Link to="/profile" title={t("navigation.profile")}>
                     <div className="modern-user-avatar">
                       {user.username
                         ? user.username.charAt(0).toUpperCase()
@@ -109,11 +109,15 @@ const Header = () => {
                   </Link>
                   {user.role === "admin" && (
                     <Link to="/admin" className="modern-nav-link">
-                      {t("sidebar.adminPanel")}
+                      {t("admin.title")}
                     </Link>
                   )}
                 </div>
-                <button className="modern-logout-button" onClick={handleLogout}>
+                <button
+                  className="modern-logout-button"
+                  onClick={handleLogout}
+                  title={t("navigation.logout")}
+                >
                   {t("navigation.logout")}
                 </button>
               </div>
@@ -130,7 +134,11 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="modern-mobile-toggle" onClick={toggleMobileMenu}>
+          <button
+            className="modern-mobile-toggle"
+            onClick={toggleMobileMenu}
+            aria-label={t("header.toggleMenu")}
+          >
             {mobileMenuOpen ? "✕" : "☰"}
           </button>
         </div>
@@ -178,7 +186,7 @@ const Header = () => {
                     className="modern-mobile-link"
                     onClick={closeMobileMenu}
                   >
-                    {t("sidebar.adminPanel")}
+                    {t("admin.title")}
                   </Link>
                 )}
 

@@ -22,6 +22,12 @@ const LoginPage = () => {
             {t("auth.login.no_account")}{" "}
             <Link to="/register">{t("auth.login.register_link")}</Link>
           </div>
+
+          <div className="auth-additional-links">
+            <Link to="/forgot-password" className="auth-link">
+              {t("auth.login.forgotPassword")}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

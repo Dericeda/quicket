@@ -10,9 +10,12 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,6 +23,14 @@ const RegisterPage = () => {
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  // Проверка силы пароля
+  const getPasswordStrength = (password) => {
+    if (password.length < 6) return "weak";
+    if (password.length < 8) return "medium";
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) return "medium";
+    return "strong";
   };
 
   const handleSubmit = async (e) => {
@@ -46,6 +57,11 @@ const RegisterPage = () => {
       return;
     }
 
+    if (!agreeToTerms) {
+      setError(t("auth.register.error.terms_required"));
+      return;
+    }
+
     setError("");
     setLoading(true);
 
@@ -62,11 +78,14 @@ const RegisterPage = () => {
         setError(response.message || t("auth.register.error.register_error"));
       }
     } catch (err) {
+      console.error("Registration error:", err);
       setError(t("auth.register.error.username_email_exists"));
     } finally {
       setLoading(false);
     }
   };
+
+  const passwordStrength = getPasswordStrength(password);
 
   return (
     <div className="auth-container">
@@ -78,10 +97,26 @@ const RegisterPage = () => {
         </div>
 
         <div className="auth-content">
-          {error && <div className="alert alert-danger">{error}</div>}
+          {error && (
+            <div className="alert alert-danger">
+              {error}
+              <button
+                className="alert-close"
+                onClick={() => setError("")}
+                aria-label={t("common.close")}
+              >
+                ×
+              </button>
+            </div>
+          )}
+
           {success && (
             <div className="alert alert-success">
-              {t("auth.register.success")}
+              <div className="success-icon">✅</div>
+              <div>
+                <h4>{t("auth.register.success")}</h4>
+                <p>{t("auth.register.redirecting")}</p>
+              </div>
             </div>
           )}
 
@@ -97,6 +132,8 @@ const RegisterPage = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={loading || success}
+                autoComplete="username"
+                required
               />
             </div>
 
@@ -111,6 +148,8 @@ const RegisterPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading || success}
+                autoComplete="email"
+                required
               />
             </div>
 
@@ -118,14 +157,44 @@ const RegisterPage = () => {
               <label htmlFor="password">{t("auth.register.password")}</label>
               <span className="auth-input-icon">🔒</span>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 className="auth-input-field"
                 placeholder={t("auth.register.password_placeholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading || success}
+                autoComplete="new-password"
+                required
               />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={
+                  showPassword
+                    ? t("common.hidePassword")
+                    : t("common.showPassword")
+                }
+              >
+                {showPassword ? "👁️" : "👁️‍🗨️"}
+              </button>
+
+              {password && (
+                <div className={`password-strength ${passwordStrength}`}>
+                  <div className="strength-indicator">
+                    <div className="strength-bar"></div>
+                  </div>
+                  <span className="strength-text">
+                    {passwordStrength === "weak" &&
+                      t("auth.register.password.weak")}
+                    {passwordStrength === "medium" &&
+                      t("auth.register.password.medium")}
+                    {passwordStrength === "strong" &&
+                      t("auth.register.password.strong")}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="auth-input-group">
@@ -134,22 +203,72 @@ const RegisterPage = () => {
               </label>
               <span className="auth-input-icon">🔐</span>
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 className="auth-input-field"
                 placeholder={t("auth.register.confirm_password_placeholder")}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={loading || success}
+                autoComplete="new-password"
+                required
               />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                aria-label={
+                  showConfirmPassword
+                    ? t("common.hidePassword")
+                    : t("common.showPassword")
+                }
+              >
+                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+              </button>
+
+              {confirmPassword && password !== confirmPassword && (
+                <div className="validation-message error">
+                  {t("auth.register.error.passwords_not_match")}
+                </div>
+              )}
+            </div>
+
+            <div className="auth-checkbox-group">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={agreeToTerms}
+                  onChange={(e) => setAgreeToTerms(e.target.checked)}
+                  disabled={loading || success}
+                  required
+                />
+                <span className="checkmark"></span>
+                <span className="checkbox-text">
+                  {t("auth.register.agreeToTerms")}{" "}
+                  <Link to="/terms" className="auth-link" target="_blank">
+                    {t("auth.register.termsAndConditions")}
+                  </Link>{" "}
+                  {t("common.and")}{" "}
+                  <Link to="/privacy" className="auth-link" target="_blank">
+                    {t("auth.register.privacyPolicy")}
+                  </Link>
+                </span>
+              </label>
             </div>
 
             <button
               type="submit"
               className="auth-submit-btn"
-              disabled={loading || success}
+              disabled={loading || success || !agreeToTerms}
             >
-              {loading ? t("auth.register.loading") : t("auth.register.button")}
+              {loading ? (
+                <>
+                  <span className="loading-spinner"></span>
+                  {t("auth.register.loading")}
+                </>
+              ) : (
+                t("auth.register.button")
+              )}
             </button>
           </form>
 

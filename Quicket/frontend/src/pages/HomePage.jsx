@@ -39,7 +39,7 @@ const HomePage = () => {
         setRecentEvents(events.slice(0, 8)); // Увеличиваем до 8 карточек
         setLoading(false);
       } catch (err) {
-        setError(t("common.error"));
+        setError(t("homepage.events.errorLoading"));
         setLoading(false);
       }
     };
@@ -57,7 +57,7 @@ const HomePage = () => {
             <img
               key={index}
               src={image}
-              alt={`Background ${index + 1}`}
+              alt={t("homepage.slider.goToSlide", { number: index + 1 })}
               className={`hero-bg-image ${
                 index === currentSlide ? "active" : ""
               }`}
@@ -68,12 +68,8 @@ const HomePage = () => {
 
         <div className="hero-content">
           <div className="hero-text">
-            <h1>Quicket</h1>
-            <p>
-              Находите и бронируйте места на спортивные и культурные мероприятия
-              с помощью нашего удобного приложения. Откройте для себя мир
-              развлечений и незабываемых впечатлений.
-            </p>
+            <h1>{t("app.name")}</h1>
+            <p>{t("homepage.hero.description")}</p>
           </div>
         </div>
 
@@ -84,7 +80,7 @@ const HomePage = () => {
               key={index}
               className={`slider-dot ${index === currentSlide ? "active" : ""}`}
               onClick={() => setCurrentSlide(index)}
-              aria-label={`Перейти к слайду ${index + 1}`}
+              aria-label={t("homepage.slider.goToSlide", { number: index + 1 })}
             />
           ))}
         </div>
@@ -94,16 +90,23 @@ const HomePage = () => {
       <section className="events-section">
         <div className="container">
           <div className="section-header">
-            <h2>Explore More Destination</h2>
+            <h2>{t("homepage.events.exploreMore")}</h2>
           </div>
 
           {loading ? (
             <div className="loading-container">
               <div className="spinner"></div>
-              <p>{t("common.loading")}</p>
+              <p>{t("homepage.events.loadingEvents")}</p>
             </div>
           ) : error ? (
             <div className="alert alert-danger">{error}</div>
+          ) : recentEvents.length === 0 ? (
+            <div className="no-events-container">
+              <p>{t("homepage.events.noEvents")}</p>
+              <Link to="/events" className="btn btn-primary">
+                {t("homepage.hero.findEvents")}
+              </Link>
+            </div>
           ) : (
             <div className="events-grid">
               {recentEvents.map((event) => (
@@ -113,12 +116,91 @@ const HomePage = () => {
           )}
 
           <div className="events-navigation">
-            <button className="events-nav-arrow events-nav-prev">
+            <button
+              className="events-nav-arrow events-nav-prev"
+              aria-label={t("homepage.slider.previousSlide")}
+            >
               <span>❮</span>
             </button>
-            <button className="events-nav-arrow events-nav-next">
+            <button
+              className="events-nav-arrow events-nav-next"
+              aria-label={t("homepage.slider.nextSlide")}
+            >
               <span>❯</span>
             </button>
+          </div>
+
+          {/* View All Events Link */}
+          <div className="view-all-container">
+            <Link to="/events" className="view-all-btn">
+              {t("homepage.events.allEvents")}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="features-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>{t("homepage.features.title")}</h2>
+            <p>{t("homepage.features.subtitle")}</p>
+          </div>
+
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">🎯</div>
+              <h3>{t("homepage.features.simpleBooking.title")}</h3>
+              <p>{t("homepage.features.simpleBooking.description")}</p>
+            </div>
+
+            <div className="feature-card">
+              <div className="feature-icon">💳</div>
+              <h3>{t("homepage.features.onlinePayment.title")}</h3>
+              <p>{t("homepage.features.onlinePayment.description")}</p>
+            </div>
+
+            <div className="feature-card">
+              <div className="feature-icon">🌍</div>
+              <h3>{t("homepage.features.multilingual.title")}</h3>
+              <p>{t("homepage.features.multilingual.description")}</p>
+            </div>
+
+            <div className="feature-card">
+              <div className="feature-icon">📱</div>
+              <h3>{t("homepage.features.mobileAccess.title")}</h3>
+              <p>{t("homepage.features.mobileAccess.description")}</p>
+            </div>
+
+            <div className="feature-card">
+              <div className="feature-icon">🛡️</div>
+              <h3>{t("homepage.features.securePayments.title")}</h3>
+              <p>{t("homepage.features.securePayments.description")}</p>
+            </div>
+
+            <div className="feature-card">
+              <div className="feature-icon">🎧</div>
+              <h3>{t("homepage.features.customerSupport.title")}</h3>
+              <p>{t("homepage.features.customerSupport.description")}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="container">
+          <div className="cta-content">
+            <h2>{t("homepage.cta.title")}</h2>
+            <p>{t("homepage.cta.description")}</p>
+            <div className="cta-buttons">
+              <Link to="/register" className="cta-btn primary">
+                {t("homepage.cta.register")}
+              </Link>
+              <Link to="/events" className="cta-btn secondary">
+                {t("homepage.cta.learnMore")}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
