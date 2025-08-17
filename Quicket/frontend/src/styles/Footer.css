@@ -3,7 +3,6 @@
   background-color: #1a1a1a;
   color: #ffffff;
   padding: 45px 0 15px; /* Уменьшено с 60px 0 20px */
-  margin-top: 30px;
 }
 
 .footer-content {
@@ -163,7 +162,7 @@
   }
 
   .modern-footer {
-    padding: 30px 0 15px; /* Уменьшено с 40px 0 20px */
+    padding: 0 0 15px; /* Уменьшено с 40px 0 20px */
   }
 }
 
