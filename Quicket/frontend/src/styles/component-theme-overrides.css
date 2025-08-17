@@ -1,0 +1,573 @@
+/* component-theme-overrides.css 
+   Дополнительные переопределения для специфичных компонентов */
+
+/* === НАВИГАЦИЯ И ХЕДЕР === */
+
+/* Современный хедер */
+.modern-header {
+  background: var(--header-bg) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.logo-brand {
+  color: var(--text-primary) !important;
+}
+
+.modern-nav-link {
+  color: var(--text-secondary) !important;
+}
+
+.modern-nav-link:hover,
+.modern-nav-link.active {
+  color: var(--primary-color) !important;
+}
+
+.modern-user-name {
+  color: var(--text-primary) !important;
+}
+
+.modern-login-btn {
+  color: var(--text-secondary) !important;
+  border-color: transparent !important;
+}
+
+.modern-login-btn:hover {
+  background: var(--hover-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Мобильная навигация */
+.modern-mobile-nav {
+  background: var(--header-bg) !important;
+  border-color: var(--border-color) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.modern-mobile-link {
+  color: var(--text-secondary) !important;
+}
+
+.modern-mobile-link:hover {
+  background: var(--hover-bg) !important;
+  color: var(--primary-color) !important;
+}
+
+/* === КАРТОЧКИ СОБЫТИЙ === */
+
+.modern-event-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.modern-event-card:hover {
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.card-title {
+  color: var(--text-primary) !important;
+}
+
+.detail-text,
+.rating-text {
+  color: var(--text-secondary) !important;
+}
+
+.price-amount {
+  color: var(--text-primary) !important;
+}
+
+.price-label {
+  color: var(--text-muted) !important;
+}
+
+/* === ФОРМЫ БРОНИРОВАНИЯ === */
+
+.booking-form {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.booking-form-title {
+  color: var(--text-primary) !important;
+}
+
+.booking-form-subtitle {
+  color: var(--text-secondary) !important;
+}
+
+.price-calculation {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.price-row {
+  color: var(--text-secondary) !important;
+}
+
+.price-row.total {
+  color: var(--text-primary) !important;
+}
+
+/* === ДЕТАЛИ СОБЫТИЙ === */
+
+.event-detail-card {
+  background: var(--bg-primary) !important;
+}
+
+.event-meta {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.meta-label {
+  color: var(--text-muted) !important;
+}
+
+.meta-value {
+  color: var(--text-primary) !important;
+}
+
+.venue-info {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.venue-details h4 {
+  color: var(--text-primary) !important;
+}
+
+.venue-address {
+  color: var(--text-secondary) !important;
+}
+
+/* === АДМИН ПАНЕЛЬ === */
+
+.admin-dashboard {
+  background-color: var(--bg-secondary) !important;
+}
+
+.admin-sidebar {
+  background-color: var(--sidebar-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+.admin-sidebar-header h2 {
+  color: var(--text-light) !important;
+}
+
+.admin-nav-item {
+  color: var(--text-light) !important;
+}
+
+.admin-nav-item:hover {
+  background-color: var(--primary-color) !important;
+}
+
+.admin-nav-item.active {
+  background-color: var(--primary-color) !important;
+  color: var(--text-light) !important;
+}
+
+.admin-content {
+  background-color: var(--bg-secondary) !important;
+}
+
+.admin-page-title {
+  color: var(--text-primary) !important;
+}
+
+/* Админ карточки */
+.admin-stat-card {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.admin-stat-details h3 {
+  color: var(--text-secondary) !important;
+}
+
+.admin-stat-value {
+  color: var(--text-primary) !important;
+}
+
+.admin-stat-text {
+  color: var(--text-muted) !important;
+}
+
+/* Админ таблицы */
+.admin-table {
+  background-color: var(--bg-card) !important;
+}
+
+.admin-table th {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.admin-table td {
+  color: var(--text-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.admin-table tr:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+/* Админ фильтры */
+.admin-filters {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.admin-filter-group label {
+  color: var(--text-primary) !important;
+}
+
+/* === УВЕДОМЛЕНИЯ === */
+
+.notifications-page {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.notifications-header h1 {
+  color: var(--text-primary) !important;
+}
+
+.notification-item {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.notification-item.unread {
+  background-color: var(--info-bg) !important;
+  border-left: 4px solid var(--info-border) !important;
+}
+
+.notification-title {
+  color: var(--text-primary) !important;
+}
+
+.notification-message {
+  color: var(--text-secondary) !important;
+}
+
+.notification-date {
+  color: var(--text-muted) !important;
+}
+
+/* Dropdown уведомлений */
+.notification-dropdown {
+  background-color: var(--dropdown-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.notification-dropdown-header h3 {
+  color: var(--text-primary) !important;
+}
+
+.notification-dropdown-item {
+  border-color: var(--border-color) !important;
+}
+
+.notification-dropdown-item:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+.notification-dropdown-item-header h4 {
+  color: var(--text-primary) !important;
+}
+
+.notification-dropdown-item-message {
+  color: var(--text-secondary) !important;
+}
+
+.notification-dropdown-item-time {
+  color: var(--text-muted) !important;
+}
+
+/* === МОДАЛЬНЫЕ ОКНА === */
+
+.admin-modal {
+  background-color: var(--bg-overlay) !important;
+}
+
+.admin-modal-content {
+  background-color: var(--modal-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.admin-modal h3 {
+  color: var(--text-primary) !important;
+}
+
+.payment-qr-overlay {
+  background-color: var(--bg-overlay) !important;
+}
+
+.payment-qr-content {
+  background-color: var(--modal-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.payment-qr-header h2 {
+  color: var(--text-primary) !important;
+}
+
+.payment-qr-header p {
+  color: var(--text-secondary) !important;
+}
+
+.timer-number {
+  color: var(--text-primary) !important;
+}
+
+.timer-text {
+  color: var(--text-secondary) !important;
+}
+
+/* === АВТОРИЗАЦИЯ === */
+
+.auth-container {
+  background-color: var(--bg-secondary) !important;
+}
+
+.auth-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.auth-title {
+  color: var(--text-primary) !important;
+}
+
+.auth-subtitle {
+  color: var(--text-secondary) !important;
+}
+
+.auth-input-field {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--input-text) !important;
+}
+
+.auth-input-field:focus {
+  border-color: var(--input-border-focus) !important;
+}
+
+.auth-input-field::placeholder {
+  color: var(--input-placeholder) !important;
+}
+
+.auth-input-icon {
+  color: var(--text-muted) !important;
+}
+
+/* === ВЫБОР МЕСТ === */
+
+.seat-selection-container,
+.stadium-selection-container {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.seat-selection-title,
+.stadium-title {
+  color: var(--text-primary) !important;
+}
+
+.stage {
+  background-color: var(--warning-border) !important;
+}
+
+.stage-label {
+  color: var(--text-light) !important;
+}
+
+.selected-seats-summary {
+  background-color: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.selected-seats-summary h4 {
+  color: var(--text-primary) !important;
+}
+
+/* === ФУТЕР === */
+
+.modern-footer {
+  background-color: var(--footer-bg) !important;
+  color: var(--text-light) !important;
+}
+
+.brand-name {
+  color: var(--primary-color) !important;
+}
+
+.brand-description {
+  color: var(--text-light) !important;
+  opacity: 0.8;
+}
+
+.column-title {
+  color: var(--text-light) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.footer-links a {
+  color: var(--text-light) !important;
+  opacity: 0.8;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color) !important;
+  opacity: 1;
+}
+
+.contact-label {
+  color: var(--primary-color) !important;
+}
+
+.contact-value {
+  color: var(--text-light) !important;
+  opacity: 0.8;
+}
+
+.copyright {
+  color: var(--text-light) !important;
+  opacity: 0.6;
+}
+
+/* === ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ === */
+
+.profile-tabs {
+  border-color: var(--border-color) !important;
+}
+
+.profile-tab-btn {
+  color: var(--text-secondary) !important;
+}
+
+.profile-tab-btn:hover {
+  color: var(--primary-color) !important;
+}
+
+.profile-tab-btn.active {
+  color: var(--primary-color) !important;
+}
+
+.profile-tab-btn.active::after {
+  background-color: var(--primary-color) !important;
+}
+
+/* === ДОПОЛНИТЕЛЬНЫЕ ИСПРАВЛЕНИЯ === */
+
+/* Исправление для элементов с жестко заданными стилями */
+.bg-white {
+  background-color: var(--bg-card) !important;
+}
+
+.text-black {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-500 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+.border-gray-300 {
+  border-color: var(--border-color) !important;
+}
+
+.border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+/* Переопределение для Tailwind классов если они используются */
+.bg-gray-50 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-700 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+/* === СПЕЦИАЛЬНЫЕ ПЕРЕХОДЫ === */
+
+/* Плавная анимация переключения темы для всей страницы */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Исключения для элементов которые не должны анимироваться */
+.no-theme-transition,
+.no-theme-transition * {
+  transition: none !important;
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+
+/* Улучшенная видимость фокуса */
+*:focus {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px !important;
+}
+
+/* Улучшение контраста для пользователей с ограниченным зрением */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: var(--text-primary);
+    --text-secondary: var(--text-primary);
+  }
+
+  [data-theme="dark"] {
+    --border-color: var(--text-light);
+    --text-secondary: var(--text-light);
+  }
+}
+
+/* Отключение анимаций для пользователей с ограниченным восприятием движения */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

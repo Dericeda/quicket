@@ -3,6 +3,7 @@
   background-color: #1a1a1a;
   color: #ffffff;
   padding: 45px 0 15px; /* Уменьшено с 60px 0 20px */
+  margin-top: 50px;
 }
 
 .footer-content {
@@ -139,6 +140,7 @@
 
   .brand-name {
     font-size: 1.4rem; /* Уменьшено с 1.8rem */
+    margin-top: 50px;
   }
 
   .brand-description {
@@ -163,6 +165,7 @@
 
   .modern-footer {
     padding: 0 0 15px; /* Уменьшено с 40px 0 20px */
+    margin-top: 50px;
   }
 }
 

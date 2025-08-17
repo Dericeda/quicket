@@ -1,54 +1,109 @@
-import React, { createContext, useState, useEffect } from 'react';
+// Улучшенный ThemeContext.jsx
+import React, { createContext, useState, useEffect } from "react";
 
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Check if user has a saved theme preference in localStorage
-  // or use their system preference as default
-  const getInitialTheme = () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
+  // Инициализация темы из localStorage или системных предпочтений
+  const [theme, setTheme] = useState(() => {
+    // Проверяем localStorage
+    const savedTheme = localStorage.getItem("quicket-theme");
+    if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
       return savedTheme;
     }
-    
-    // Check for system preference
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches 
-      ? 'dark' 
-      : 'light';
-  };
 
-  const [theme, setTheme] = useState(getInitialTheme);
+    // Если нет сохраненной темы, проверяем системные предпочтения
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return "dark";
+    }
 
-  // Toggle theme function
+    // По умолчанию светлая тема
+    return "light";
+  });
+
+  // Функция переключения темы
   const toggleTheme = () => {
-    setTheme(prevTheme => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      return newTheme;
-    });
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
   };
 
-  // Apply theme to document when theme changes
+  // Применение темы к документу и сохранение в localStorage
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    // Сохраняем в localStorage
+    localStorage.setItem("quicket-theme", theme);
+
+    // Применяем к document.documentElement (html тег)
+    document.documentElement.setAttribute("data-theme", theme);
+
+    // Дополнительно добавляем класс для совместимости
+    document.body.className = document.body.className.replace(/theme-\w+/g, "");
+    document.body.classList.add(`theme-${theme}`);
+
+    // Мета-тег для браузера (для цвета строки состояния на мобильных)
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute(
+        "content",
+        theme === "dark" ? "#0f172a" : "#ffffff"
+      );
+    } else {
+      const meta = document.createElement("meta");
+      meta.name = "theme-color";
+      meta.content = theme === "dark" ? "#0f172a" : "#ffffff";
+      document.getElementsByTagName("head")[0].appendChild(meta);
+    }
+
+    // Уведомляем о смене темы (для аналитики или других компонентов)
+    window.dispatchEvent(
+      new CustomEvent("themeChanged", { detail: { theme } })
+    );
   }, [theme]);
 
-  // Listen for system preference changes
+  // Слушаем изменения системных предпочтений
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      if (!localStorage.getItem('theme')) {
-        setTheme(mediaQuery.matches ? 'dark' : 'light');
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleSystemThemeChange = (e) => {
+      // Только если пользователь не выбрал тему вручную
+      const savedTheme = localStorage.getItem("quicket-theme");
+      if (!savedTheme) {
+        setTheme(e.matches ? "dark" : "light");
       }
     };
 
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+    };
   }, []);
 
+  // Дополнительные утилиты для темы
+  const themeUtils = {
+    isDark: theme === "dark",
+    isLight: theme === "light",
+    setLightTheme: () => setTheme("light"),
+    setDarkTheme: () => setTheme("dark"),
+    resetToSystemTheme: () => {
+      localStorage.removeItem("quicket-theme");
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+      setTheme(systemTheme);
+    },
+  };
+
+  const value = {
+    theme,
+    toggleTheme,
+    ...themeUtils,
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };

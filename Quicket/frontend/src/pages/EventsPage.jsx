@@ -76,7 +76,7 @@ const EventsPage = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">{t('events.title')}</h1>
+      <h1 className="text-center mb-4 eventsSectionMarginTop">{t('events.title')}</h1>
       
       {error ? (
         <div className="alert alert-danger">{error}</div>

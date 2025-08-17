@@ -223,3 +223,7 @@ a:hover {
   background-color: var(--danger-color);
   color: white;
 }
+
+.eventsSectionMarginTop{
+  margin-top: 60px;
+}

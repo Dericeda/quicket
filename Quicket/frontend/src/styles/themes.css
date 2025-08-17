@@ -1,132 +1,534 @@
+/* Обновленный файл themes.css с полным покрытием всех элементов */
+
 :root {
-  /* Базовые цвета - Светлая тема по умолчанию */
-  --primary-color: #3498DB; /* Основной голубой */
-  --primary-hover: #2980B9; /* Темнее голубой при наведении */
-  --secondary-color: #1ABC9C; /* Бирюзовый/зеленый акцент */
-  --secondary-hover: #16A085; /* Темнее бирюзовый при наведении */
-  --accent-color: #0D1B2A; /* Темно-синий/черный */
+  /* === СВЕТЛАЯ ТЕМА (по умолчанию) === */
+  
+  /* Основные цвета */
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #10b981;
+  --secondary-hover: #059669;
+  --accent-color: #8b5cf6;
+  --accent-hover: #7c3aed;
   
   /* Фоновые цвета */
   --bg-primary: #ffffff;
-  --bg-secondary: #f5f7fa;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
   --bg-card: #ffffff;
-  --bg-sidebar: #0D1B2A;
+  --bg-sidebar: #1e293b;
+  --bg-modal: #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
   
   /* Цвета текста */
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
   --text-light: #ffffff;
-  --text-notification: #0D1B2A;
+  --text-on-primary: #ffffff;
+  --text-on-card: #1e293b;
   
-  /* Цвета границ */
-  --border-color: #e5e7eb;
-  --divider-color: rgba(0, 0, 0, 0.1);
+  /* Границы и разделители */
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --divider-color: #e2e8f0;
   
-  /* Специфичные цвета компонентов */
-  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  /* Тени */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Формы */
   --input-bg: #ffffff;
-  --input-border: #e5e7eb;
-  --input-text: #0D1B2A;
+  --input-border: #d1d5db;
+  --input-border-focus: #2563eb;
+  --input-text: #1e293b;
   --input-placeholder: #9ca3af;
   
-  /* Кнопка переключения темы */
-  --toggle-bg: rgba(0, 0, 0, 0.05);
-  --toggle-hover-bg: rgba(0, 0, 0, 0.1);
+  /* Статусы и уведомления */
+  --success-bg: #f0fdf4;
+  --success-border: #10b981;
+  --success-text: #059669;
   
-  /* Цвета уведомлений */
-  --notification-bg-unread: #f0f7ff;
-  --notification-border-unread: #3498DB;
-  --notification-bg-read: #ffffff;
+  --error-bg: #fef2f2;
+  --error-border: #ef4444;
+  --error-text: #dc2626;
   
-  /* Цвета оповещений */
-  --alert-success-bg: rgba(26, 188, 156, 0.1);
-  --alert-success-border: #1ABC9C;
-  --alert-success-text: #16A085;
-  --alert-danger-bg: rgba(231, 76, 60, 0.1);
-  --alert-danger-border: #E74C3C;
-  --alert-danger-text: #C0392B;
-  --alert-warning-bg: rgba(241, 196, 15, 0.1);
-  --alert-warning-border: #F1C40F;
-  --alert-warning-text: #D3A516;
+  --warning-bg: #fffbeb;
+  --warning-border: #f59e0b;
+  --warning-text: #d97706;
   
-  /* Цвета для событий */
-  --event-concert: #3498DB; /* Голубой для концертов */
-  --event-sport: #1ABC9C; /* Зеленый для спортивных событий */
-  --event-theater: #9B59B6; /* Фиолетовый для театра */
+  --info-bg: #eff6ff;
+  --info-border: #3b82f6;
+  --info-text: #2563eb;
+  
+  /* Специальные элементы */
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --footer-bg: #1e293b;
+  --sidebar-bg: #1e293b;
+  --modal-bg: #ffffff;
+  --dropdown-bg: #ffffff;
+  --tooltip-bg: #1e293b;
+  
+  /* Интерактивные элементы */
+  --hover-bg: #f1f5f9;
+  --active-bg: #e2e8f0;
+  --selected-bg: #dbeafe;
   
   /* Переходы */
-  --transition-speed: 0.3s;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
-/* Темная тема */
+/* === ТЕМНАЯ ТЕМА === */
 [data-theme='dark'] {
-  /* Базовые цвета темы */
-  --primary-color: #3498DB; /* Основной голубой остается тем же */
-  --primary-hover: #5DADE2; /* Светлее при наведении в темной теме */
-  --secondary-color: #1ABC9C; /* Бирюзовый также сохраняется */
-  --secondary-hover: #48C9B0; /* Светлее при наведении */
-  --accent-color: #3498DB; /* Акцентный цвет голубой в темной теме */
+  /* Основные цвета */
+  --primary-color: #3b82f6;
+  --primary-hover: #60a5fa;
+  --secondary-color: #10b981;
+  --secondary-hover: #34d399;
+  --accent-color: #a78bfa;
+  --accent-hover: #c4b5fd;
   
   /* Фоновые цвета */
-  --bg-primary: #0D1B2A; /* Очень темный синий */
-  --bg-secondary: #1E293B; /* Темно-синий */
-  --bg-card: #1F2937; /* Темно-серый */
-  --bg-sidebar: #0F172A; /* Очень темный темно-синий */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-card: #1e293b;
+  --bg-sidebar: #0f172a;
+  --bg-modal: #1e293b;
+  --bg-overlay: rgba(0, 0, 0, 0.8);
   
   /* Цвета текста */
-  --text-primary: #cccccc; /* Почти белый */
-  --text-secondary: #D1D5DB; /* Светло-серый */
-  --text-muted: #9CA3AF; /* Серый */
-  --text-light: #F9FAFB; /* Белый */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --text-light: #ffffff;
+  --text-on-primary: #ffffff;
+  --text-on-card: #f1f5f9;
   
-  /* Цвета границ */
-  --border-color: #374151; /* Темно-серый */
-  --divider-color: rgba(255, 255, 255, 0.1); /* Белый с прозрачностью */
+  /* Границы и разделители */
+  --border-color: #334155;
+  --border-hover: #475569;
+  --divider-color: #334155;
   
-  /* Специфичные цвета компонентов */
-  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  --input-bg: #374151;
-  --input-border: #4B5563;
-  --input-text: #E5E7EB;
-  --input-placeholder: #9CA3AF;
+  /* Тени */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
   
-  /* Кнопка переключения темы */
-  --toggle-bg: rgba(255, 255, 255, 0.1);
-  --toggle-hover-bg: rgba(255, 255, 255, 0.2);
+  /* Формы */
+  --input-bg: #334155;
+  --input-border: #475569;
+  --input-border-focus: #3b82f6;
+  --input-text: #f1f5f9;
+  --input-placeholder: #94a3b8;
   
-  /* Цвета уведомлений */
-  --notification-bg-unread: #172554;
-  --notification-border-unread: #3498DB;
-  --notification-bg-read: #1F2937;
+  /* Статусы и уведомления */
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-border: #10b981;
+  --success-text: #34d399;
   
-  /* Цвета оповещений */
-  --alert-success-bg: rgba(26, 188, 156, 0.15);
-  --alert-success-border: #1ABC9C;
-  --alert-success-text: #1ABC9C;
-  --alert-danger-bg: rgba(231, 76, 60, 0.15);
-  --alert-danger-border: #E74C3C;
-  --alert-danger-text: #E74C3C;
-  --alert-warning-bg: rgba(241, 196, 15, 0.15);
-  --alert-warning-border: #F1C40F;
-  --alert-warning-text: #F1C40F;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: #ef4444;
+  --error-text: #f87171;
   
-  /* Цвета для событий в темной теме */
-  --event-concert: #3498DB; /* Голубой для концертов */
-  --event-sport: #1ABC9C; /* Зеленый для спортивных событий */
-  --event-theater: #9B59B6; /* Фиолетовый для театра */
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --warning-border: #f59e0b;
+  --warning-text: #fbbf24;
+  
+  --info-bg: rgba(59, 130, 246, 0.1);
+  --info-border: #3b82f6;
+  --info-text: #60a5fa;
+  
+  /* Специальные элементы */
+  --header-bg: rgba(15, 23, 42, 0.95);
+  --footer-bg: #0f172a;
+  --sidebar-bg: #0f172a;
+  --modal-bg: #1e293b;
+  --dropdown-bg: #334155;
+  --tooltip-bg: #0f172a;
+  
+  /* Интерактивные элементы */
+  --hover-bg: #334155;
+  --active-bg: #475569;
+  --selected-bg: rgba(59, 130, 246, 0.2);
 }
 
-/* Применяем стили по умолчанию для тела на основе темы */
+/* === ПРИМЕНЕНИЕ БАЗОВЫХ СТИЛЕЙ === */
+
+* {
+  transition: background-color var(--transition-fast), 
+              color var(--transition-fast), 
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              opacity var(--transition-fast);
+}
+
+html {
+  background-color: var(--bg-primary);
+}
+
 body {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
-  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-/* Применяем переход ко всем элементам для более плавной смены темы */
+/* === КАРТОЧКИ И КОНТЕЙНЕРЫ === */
+.card,
+.modern-event-card,
+.event-detail-card,
+.booking-form,
+.admin-form-container,
+.notification-item,
+.booking-card,
+.admin-modal-content {
+  background-color: var(--bg-card) !important;
+  color: var(--text-on-card) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* === ЗАГОЛОВКИ И ТЕКСТ === */
+h1, h2, h3, h4, h5, h6 {
+  /* color: var(--text-primary) !important; */
+}
+
+p, span, div {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* === КНОПКИ === */
+.btn,
+.booking-submit-btn,
+.admin-add-button,
+.modern-signup-btn,
+.admin-action-button,
+button {
+  transition: all var(--transition-fast) !important;
+}
+
+.btn-primary,
+.booking-submit-btn,
+.admin-add-button {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-on-primary) !important;
+}
+
+.btn-primary:hover,
+.booking-submit-btn:hover,
+.admin-add-button:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
+  color: var(--text-on-primary) !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover) !important;
+  border-color: var(--secondary-hover) !important;
+}
+
+/* === ФОРМЫ === */
+.form-control,
+.auth-input-field,
+input,
+textarea,
+select {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--input-text) !important;
+}
+
+.form-control:focus,
+.auth-input-field:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--input-border-focus) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+}
+
+::placeholder {
+  color: var(--input-placeholder) !important;
+}
+
+/* === ТАБЛИЦЫ === */
+.admin-table,
+table {
+  background-color: var(--bg-card) !important;
+  color: var(--text-on-card) !important;
+}
+
+.admin-table th,
+table th {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.admin-table td,
+table td {
+  color: var(--text-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.admin-table tr:hover,
+table tr:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+/* === МОДАЛЬНЫЕ ОКНА === */
+.admin-modal,
+.payment-qr-overlay {
+  background-color: var(--bg-overlay) !important;
+}
+
+.payment-qr-content {
+  background-color: var(--modal-bg) !important;
+  color: var(--text-on-card) !important;
+}
+
+/* === ДРОПДАУНЫ === */
+.notification-dropdown,
+.language-dropdown,
+.dropdown-menu {
+  background-color: var(--dropdown-bg) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* === НАВИГАЦИЯ === */
+.modern-header {
+  background-color: var(--header-bg) !important;
+  border-color: var(--border-color) !important;
+  backdrop-filter: blur(20px);
+}
+
+.modern-nav-link {
+  color: var(--text-secondary) !important;
+}
+
+.modern-nav-link:hover,
+.modern-nav-link.active {
+  color: var(--text-primary) !important;
+}
+
+/* === ФУТЕР === */
+.modern-footer,
+.footer {
+  background-color: var(--footer-bg) !important;
+  color: var(--text-light) !important;
+}
+
+/* === САЙДБАР === */
+.admin-sidebar,
+.sidebar {
+  background-color: var(--sidebar-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* === УВЕДОМЛЕНИЯ === */
+.alert-success {
+  background-color: var(--success-bg) !important;
+  border-color: var(--success-border) !important;
+  color: var(--success-text) !important;
+}
+
+.alert-danger,
+.alert-error {
+  background-color: var(--error-bg) !important;
+  border-color: var(--error-border) !important;
+  color: var(--error-text) !important;
+}
+
+.alert-warning {
+  background-color: var(--warning-bg) !important;
+  border-color: var(--warning-border) !important;
+  color: var(--warning-text) !important;
+}
+
+.alert-info {
+  background-color: var(--info-bg) !important;
+  border-color: var(--info-border) !important;
+  color: var(--info-text) !important;
+}
+
+/* === СПЕЦИАЛЬНЫЕ ЭЛЕМЕНТЫ === */
+
+/* Переключатель темы */
+.theme-toggle-button {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.theme-toggle-button:hover {
+  background-color: var(--active-bg) !important;
+}
+
+/* Выбор языка */
+.language-toggle {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.language-option {
+  color: var(--text-secondary) !important;
+}
+
+.language-option:hover,
+.language-option.active {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Карточки событий */
+.card-title {
+  color: var(--text-primary) !important;
+}
+
+.detail-text,
+.card-content p {
+  color: var(--text-secondary) !important;
+}
+
+/* Выбор мест */
+.seat.available {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.seat.selected {
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-hover) !important;
+}
+
+.seat.occupied {
+  background-color: var(--error-border) !important;
+  border-color: var(--error-text) !important;
+}
+
+/* Загрузчики */
+.spinner {
+  border-color: var(--border-color) !important;
+  border-top-color: var(--primary-color) !important;
+}
+
+/* === ПЕРЕОПРЕДЕЛЕНИЯ ДЛЯ КОНКРЕТНЫХ КОМПОНЕНТОВ === */
+
+/* Hero секция */
+.hero-section {
+  color: var(--text-light) !important;
+}
+
+/* Админ панель */
+.admin-content {
+  background-color: var(--bg-secondary) !important;
+}
+
+.admin-stat-card {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Фильтры */
+.admin-filters,
+.events-filters {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Мобильная навигация */
+.modern-mobile-nav {
+  background-color: var(--header-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+.modern-mobile-link {
+  color: var(--text-secondary) !important;
+}
+
+.modern-mobile-link:hover {
+  color: var(--text-primary) !important;
+  background-color: var(--hover-bg) !important;
+}
+
+/* === УЛУЧШЕНИЯ ВИЗУАЛИЗАЦИИ === */
+
+/* Плавные переходы для всех интерактивных элементов */
+a, button, .clickable {
+  transition: all var(--transition-fast) !important;
+}
+
+/* Улучшенные тени в зависимости от темы */
+.card:hover,
+.modern-event-card:hover {
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Индикаторы фокуса */
+*:focus {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px !important;
+}
+
+/* Скроллбары */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* === РЕСПОНСИВНОСТЬ === */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Автоматическое переключение на темную тему если пользователь предпочитает темную тему */
+    color-scheme: dark;
+  }
+}
+
+/* Убеждаемся что все элементы наследуют правильные цвета */
 * {
-  transition: background-color var(--transition-speed), 
-              color var(--transition-speed), 
-              border-color var(--transition-speed),
-              box-shadow var(--transition-speed);
+  border-color: inherit;
+  color: inherit;
+}
+
+/* Финальные корректировки для проблемных элементов */
+.bg-white {
+  background-color: var(--bg-card) !important;
+}
+
+.text-black,
+.text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.border-gray-300 {
+  border-color: var(--border-color) !important;
 }
