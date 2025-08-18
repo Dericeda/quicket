@@ -1,82 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
-    title: '',
-    type: 'SPORT',
-    venue_id: '',
-    date: '',
-    time: '18:00',
+    title: "",
+    type: "SPORT",
+    venue_id: "",
+    date: "",
+    time: "18:00",
     duration: 60,
     total_seats: 100,
     price: 1000,
-    description: '',
-    event_subtype: '',
-    image_url: '',
-    background_music_url: '',
+    description: "",
+    event_subtype: "",
+    image_url: "",
+    background_music_url: "",
     music_volume: 30,
-    organizer: '',
+    organizer: "",
     featured: false,
-    status: 'UPCOMING',
-    media: []
+    status: "UPCOMING",
+    media: [],
   });
   const [errors, setErrors] = useState({});
   const [showMediaForm, setShowMediaForm] = useState(false);
-  const [tempMedia, setTempMedia] = useState({ type: 'image', url: '', description: '' });
+  const [tempMedia, setTempMedia] = useState({
+    type: "image",
+    url: "",
+    description: "",
+  });
 
   // Типы событий
   const eventTypes = [
-    { value: 'SPORT', label: 'Спорт' },
-    { value: 'CONCERT', label: 'Концерт' },
-    { value: 'THEATER', label: 'Театр' },
-    { value: 'EXHIBITION', label: 'Выставка' },
-    { value: 'WORKSHOP', label: 'Мастер-класс' },
-    { value: 'OTHER', label: 'Другое' }
+    { value: "SPORT", label: "Спорт" },
+    { value: "CONCERT", label: "Концерт" },
+    { value: "THEATER", label: "Театр" },
+    { value: "EXHIBITION", label: "Выставка" },
+    { value: "WORKSHOP", label: "Мастер-класс" },
+    { value: "OTHER", label: "Другое" },
   ];
 
   // Статусы событий
   const eventStatuses = [
-    { value: 'UPCOMING', label: 'Предстоящее' },
-    { value: 'ONGOING', label: 'Проходит' },
-    { value: 'FINISHED', label: 'Завершено' },
-    { value: 'CANCELLED', label: 'Отменено' }
+    { value: "UPCOMING", label: "Предстоящее" },
+    { value: "ONGOING", label: "Проходит" },
+    { value: "FINISHED", label: "Завершено" },
+    { value: "CANCELLED", label: "Отменено" },
   ];
 
   // Инициализация формы при редактировании существующего события
   useEffect(() => {
     if (event) {
-      const formattedDate = event.date ? event.date.split('T')[0] : '';
-      
+      const formattedDate = event.date ? event.date.split("T")[0] : "";
+
       setFormData({
-        title: event.title || '',
-        type: event.type || 'SPORT',
-        venue_id: event.venue_id || '',
+        title: event.title || "",
+        type: event.type || "SPORT",
+        venue_id: event.venue_id || "",
         date: formattedDate,
-        time: event.time || '18:00',
+        time: event.time || "18:00",
         duration: event.duration || 60,
         total_seats: event.total_seats || 100,
         price: event.price || 1000,
-        description: event.description || '',
-        event_subtype: event.event_subtype || '',
-        image_url: event.image_url || '',
-        background_music_url: event.background_music_url || '',
-        organizer: event.organizer || '',
+        description: event.description || "",
+        event_subtype: event.event_subtype || "",
+        image_url: event.image_url || "",
+        background_music_url: event.background_music_url || "",
+        organizer: event.organizer || "",
         featured: event.featured || false,
-        status: event.status || 'UPCOMING',
-        media: event.media || []
+        status: event.status || "UPCOMING",
+        media: event.media || [],
       });
     } else {
       // Для создания нового события, устанавливаем текущую дату в формате YYYY-MM-DD
       const today = new Date();
       const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const day = String(today.getDate()).padStart(2, '0');
-      
-      setFormData(prevData => ({
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+
+      setFormData((prevData) => ({
         ...prevData,
-        date: `${year}-${month}-${day}`
+        date: `${year}-${month}-${day}`,
       }));
     }
   }, [event]);
@@ -84,20 +88,20 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
   // Обработчик изменения полей формы
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     // Для чекбоксов берем свойство checked
-    const newValue = type === 'checkbox' ? checked : value;
-    
-    setFormData(prevData => ({
+    const newValue = type === "checkbox" ? checked : value;
+
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: newValue
+      [name]: newValue,
     }));
-    
+
     // Сбрасываем ошибку для поля, которое изменилось
     if (errors[name]) {
-      setErrors(prevErrors => ({
+      setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: null
+        [name]: null,
       }));
     }
   };
@@ -105,63 +109,63 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
   // Обработчик изменения полей формы временного медиафайла
   const handleMediaChange = (e) => {
     const { name, value } = e.target;
-    
-    setTempMedia(prevMedia => ({
+
+    setTempMedia((prevMedia) => ({
       ...prevMedia,
-      [name]: value
+      [name]: value,
     }));
   };
 
   // Добавление медиафайла
   const handleAddMedia = () => {
     if (tempMedia.url) {
-      setFormData(prevData => ({
+      setFormData((prevData) => ({
         ...prevData,
-        media: [...prevData.media, { ...tempMedia }]
+        media: [...prevData.media, { ...tempMedia }],
       }));
-      
+
       // Сброс формы добавления медиа
-      setTempMedia({ type: 'image', url: '', description: '' });
+      setTempMedia({ type: "image", url: "", description: "" });
       setShowMediaForm(false);
     }
   };
 
   // Удаление медиафайла
   const handleDeleteMedia = (index) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      media: prevData.media.filter((_, i) => i !== index)
+      media: prevData.media.filter((_, i) => i !== index),
     }));
   };
 
   // Валидация формы
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.title.trim()) {
-      newErrors.title = t('admin.events.validation.titleRequired', 'Название обязательно');
+      newErrors.title = t("admin.events.validation.titleRequired");
     }
-    
+
     if (!formData.venue_id) {
-      newErrors.venue_id = t('admin.events.validation.venueRequired', 'Выберите место проведения');
+      newErrors.venue_id = t("admin.events.validation.venueRequired");
     }
-    
+
     if (!formData.date) {
-      newErrors.date = t('admin.events.validation.dateRequired', 'Дата обязательна');
+      newErrors.date = t("admin.events.validation.dateRequired");
     }
-    
+
     if (!formData.time) {
-      newErrors.time = t('admin.events.validation.timeRequired', 'Время обязательно');
+      newErrors.time = t("admin.events.validation.timeRequired");
     }
-    
+
     if (formData.total_seats <= 0) {
-      newErrors.total_seats = t('admin.events.validation.seatsPositive', 'Количество мест должно быть положительным');
+      newErrors.total_seats = t("admin.events.validation.seatsPositive");
     }
-    
+
     if (formData.price < 0) {
-      newErrors.price = t('admin.events.validation.priceNonNegative', 'Цена не может быть отрицательной');
+      newErrors.price = t("admin.events.validation.priceNonNegative");
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -169,7 +173,7 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
   // Обработчик отправки формы
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       // Преобразуем строковые ID в числовые перед отправкой
       const processingData = {
@@ -177,9 +181,9 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
         venue_id: parseInt(formData.venue_id, 10),
         total_seats: parseInt(formData.total_seats, 10),
         price: parseFloat(formData.price),
-        duration: parseInt(formData.duration, 10)
+        duration: parseInt(formData.duration, 10),
       };
-      
+
       onSave(processingData);
     }
   };
@@ -187,33 +191,35 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
   return (
     <div className="admin-form-container">
       <h2>
-        {event ? t('admin.events.editEvent', 'Редактирование мероприятия') : t('admin.events.createEvent', 'Создание нового мероприятия')}
+        {event ? t("admin.events.editEvent") : t("admin.events.createEvent")}
       </h2>
-      
+
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="title">{t('admin.events.title', 'Название')} *</label>
+            <label htmlFor="title">{t("admin.events.title")} *</label>
             <input
               type="text"
               id="title"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className={errors.title ? 'error' : ''}
+              className={errors.title ? "error" : ""}
             />
-            {errors.title && <div className="error-message">{errors.title}</div>}
+            {errors.title && (
+              <div className="error-message">{errors.title}</div>
+            )}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="type">{t('admin.events.type', 'Тип')} *</label>
+            <label htmlFor="type">{t("admin.events.type")} *</label>
             <select
               id="type"
               name="type"
               value={formData.type}
               onChange={handleChange}
             >
-              {eventTypes.map(type => (
+              {eventTypes.map((type) => (
                 <option key={type.value} value={type.value}>
                   {type.label}
                 </option>
@@ -221,69 +227,72 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
             </select>
           </div>
         </div>
-        
+
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="venue_id">{t('admin.events.venue', 'Место проведения')} *</label>
+            <label htmlFor="venue_id">{t("admin.events.venue")} *</label>
             <select
               id="venue_id"
               name="venue_id"
               value={formData.venue_id}
               onChange={handleChange}
-              className={errors.venue_id ? 'error' : ''}
+              className={errors.venue_id ? "error" : ""}
             >
-              <option value="">{t('admin.events.selectVenue', 'Выберите место')}</option>
-              {venues && venues.map(venue => (
-                <option key={venue.id} value={venue.id}>
-                  {venue.name}
-                </option>
-              ))}
+              <option value="">{t("admin.events.selectVenue")}</option>
+              {venues &&
+                venues.map((venue) => (
+                  <option key={venue.id} value={venue.id}>
+                    {venue.name}
+                  </option>
+                ))}
             </select>
-            {errors.venue_id && <div className="error-message">{errors.venue_id}</div>}
+            {errors.venue_id && (
+              <div className="error-message">{errors.venue_id}</div>
+            )}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="event_subtype">{t('admin.events.subtype', 'Подтип')} </label>
+            <label htmlFor="event_subtype">{t("admin.events.subtype")} </label>
             <input
               type="text"
               id="event_subtype"
               name="event_subtype"
               value={formData.event_subtype}
               onChange={handleChange}
-              placeholder={t('admin.events.subtypePlaceholder', 'Например: футбол, баскетбол и т.д.')}
+              placeholder={t("admin.events.subtypePlaceholder")}
             />
           </div>
         </div>
-        
+
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="date">{t('admin.events.date', 'Дата')} *</label>
+            <label htmlFor="date">{t("admin.events.date")} *</label>
             <input
               type="date"
               id="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
-              className={errors.date ? 'error' : ''}
+              className={errors.date ? "error" : ""}
             />
             {errors.date && <div className="error-message">{errors.date}</div>}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="time">{t('admin.events.time', 'Время')} *</label>
+            <label htmlFor="time">{t("admin.events.time")} *</label>
             <input
               type="time"
               id="time"
               name="time"
               value={formData.time}
               onChange={handleChange}
-              className={errors.time ? 'error' : ''}
+              className={errors.time ? "error" : ""}
             />
             {errors.time && <div className="error-message">{errors.time}</div>}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="duration">{t('admin.events.duration', 'Продолжительность (мин.)')}</label>
+            <label htmlFor="duration">{t("admin.events.duration")}</label>
             <input
               type="number"
               id="duration"
@@ -294,10 +303,12 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
             />
           </div>
         </div>
-        
+
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="total_seats">{t('admin.events.totalSeats', 'Всего мест')} *</label>
+            <label htmlFor="total_seats">
+              {t("admin.events.totalSeats")} *
+            </label>
             <input
               type="number"
               id="total_seats"
@@ -305,13 +316,15 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
               min="1"
               value={formData.total_seats}
               onChange={handleChange}
-              className={errors.total_seats ? 'error' : ''}
+              className={errors.total_seats ? "error" : ""}
             />
-            {errors.total_seats && <div className="error-message">{errors.total_seats}</div>}
+            {errors.total_seats && (
+              <div className="error-message">{errors.total_seats}</div>
+            )}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="price">{t('admin.events.price', 'Цена (тг)')} *</label>
+            <label htmlFor="price">{t("admin.events.price")} *</label>
             <input
               type="number"
               id="price"
@@ -320,20 +333,22 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
               step="100"
               value={formData.price}
               onChange={handleChange}
-              className={errors.price ? 'error' : ''}
+              className={errors.price ? "error" : ""}
             />
-            {errors.price && <div className="error-message">{errors.price}</div>}
+            {errors.price && (
+              <div className="error-message">{errors.price}</div>
+            )}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="status">{t('admin.events.status', 'Статус')}</label>
+            <label htmlFor="status">{t("admin.events.status")}</label>
             <select
               id="status"
               name="status"
               value={formData.status}
               onChange={handleChange}
             >
-              {eventStatuses.map(status => (
+              {eventStatuses.map((status) => (
                 <option key={status.value} value={status.value}>
                   {status.label}
                 </option>
@@ -341,10 +356,10 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
             </select>
           </div>
         </div>
-        
+
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="organizer">{t('admin.events.organizer', 'Организатор')}</label>
+            <label htmlFor="organizer">{t("admin.events.organizer")}</label>
             <input
               type="text"
               id="organizer"
@@ -353,7 +368,7 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
               onChange={handleChange}
             />
           </div>
-          
+
           <div className="form-group checkbox-group">
             <label className="checkbox-label">
               <input
@@ -362,59 +377,64 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
                 checked={formData.featured}
                 onChange={handleChange}
               />
-              {t('admin.events.featured', 'Избранное мероприятие')}
+              {t("admin.events.featured")}
             </label>
           </div>
         </div>
-        
-        <div className="form-group">
-  <label htmlFor="image_url">{t('admin.events.imageUrl', 'URL изображения')}</label>
-  <input
-    type="text"
-    id="image_url"
-    name="image_url"
-    value={formData.image_url}
-    onChange={handleChange}
-    placeholder="https://example.com/image.jpg"
-  />
-  <small className="form-text text-muted">
-    Это изображение будет использоваться как основное изображение мероприятия и будет отображаться на карточке события и в заголовке страницы детальной информации.
-  </small>
-</div>
 
-{formData.type === 'CONCERT' && (
-  <div className="form-group">
-  <label htmlFor="background_music_url">{t('admin.events.backgroundMusicUrl', 'URL фоновой музыки')}</label>
-  <input
-    type="text"
-    id="background_music_url"
-    name="background_music_url"
-    value={formData.background_music_url}
-    onChange={handleChange}
-    placeholder="/audio/название_файла.mp3"
-  />
-  <small className="form-text text-muted">
-    Укажите путь к аудиофайлу из папки public. Например: /audio/track1.mp3. 
-    Загрузите MP3 файл в папку public/audio/ вашего проекта.
-  </small>
-  
-  <div className="volume-control">
-    <label htmlFor="music_volume">Громкость: {formData.music_volume || 30}%</label>
-    <input
-      type="range"
-      id="music_volume"
-      name="music_volume"
-      min="10"
-      max="50"
-      value={formData.music_volume || 30}
-      onChange={handleChange}
-    />
-  </div>
-</div>
-)}
-        
         <div className="form-group">
-          <label htmlFor="description">{t('admin.events.description', 'Описание')}</label>
+          <label htmlFor="image_url">{t("admin.events.imageUrl")}</label>
+          <input
+            type="text"
+            id="image_url"
+            name="image_url"
+            value={formData.image_url}
+            onChange={handleChange}
+            placeholder="https://example.com/image.jpg"
+          />
+          <small className="form-text text-muted">
+            {t("admin.events.imageUrlHelp")}
+          </small>
+        </div>
+
+        {formData.type === "CONCERT" && (
+          <div className="form-group">
+            <label htmlFor="background_music_url">
+              {t("admin.events.backgroundMusicUrl")}
+            </label>
+            <input
+              type="text"
+              id="background_music_url"
+              name="background_music_url"
+              value={formData.background_music_url}
+              onChange={handleChange}
+              placeholder="/audio/название_файла.mp3"
+            />
+            <small className="form-text text-muted">
+              Укажите путь к аудиофайлу из папки public. Например:
+              /audio/track1.mp3. Загрузите MP3 файл в папку public/audio/ вашего
+              проекта.
+            </small>
+
+            <div className="volume-control">
+              <label htmlFor="music_volume">
+                Громкость: {formData.music_volume || 30}%
+              </label>
+              <input
+                type="range"
+                id="music_volume"
+                name="music_volume"
+                min="10"
+                max="50"
+                value={formData.music_volume || 30}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="form-group">
+          <label htmlFor="description">{t("admin.events.description")}</label>
           <textarea
             id="description"
             name="description"
@@ -423,42 +443,52 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
             onChange={handleChange}
           ></textarea>
         </div>
-        
+
         {/* Раздел медиафайлов */}
         <div className="form-section">
-          <h3 className="section-title">{t('admin.events.media', 'Медиафайлы')}</h3>
+          <h3 className="section-title">{t("admin.events.media")}</h3>
           <p className="section-info">
-            Изображения, добавленные здесь, будут отображаться в галерее на странице мероприятия. Первое изображение будет использоваться как фоновое, если основное изображение не указано.
+            Изображения, добавленные здесь, будут отображаться в галерее на
+            странице мероприятия. Первое изображение будет использоваться как
+            фоновое, если основное изображение не указано.
           </p>
-          
+
           {formData.media.length > 0 ? (
             <div className="media-list">
               {formData.media.map((media, index) => (
                 <div key={index} className="media-item">
                   <div className="media-info">
-                    <strong>{media.type === 'image' ? 'Изображение' : 
-                            media.type === 'video' ? 'Видео' : 'Аудио'}</strong>: {media.url}
+                    <strong>
+                      {media.type === "image"
+                        ? "Изображение"
+                        : media.type === "video"
+                        ? "Видео"
+                        : "Аудио"}
+                    </strong>
+                    : {media.url}
                     {media.description && <span> ({media.description})</span>}
                   </div>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     className="btn-danger btn-sm"
                     onClick={() => handleDeleteMedia(index)}
                   >
-                    Удалить
+                    {t("common.delete")}
                   </button>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="no-media">{t('admin.events.noMedia', 'Нет добавленных медиафайлов')}</p>
+            <p className="no-media">{t("admin.events.noMedia")}</p>
           )}
-          
+
           {showMediaForm ? (
             <div className="media-form">
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="mediaType">{t('admin.events.mediaType', 'Тип медиа')}</label>
+                  <label htmlFor="mediaType">
+                    {t("admin.events.mediaType")}
+                  </label>
                   <select
                     id="mediaType"
                     name="type"
@@ -470,9 +500,11 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
                     <option value="audio">Аудио</option>
                   </select>
                 </div>
-                
+
                 <div className="form-group">
-                  <label htmlFor="mediaUrl">{t('admin.events.mediaUrl', 'URL медиафайла')} *</label>
+                  <label htmlFor="mediaUrl">
+                    {t("admin.events.mediaUrl")} *
+                  </label>
                   <input
                     type="text"
                     id="mediaUrl"
@@ -483,9 +515,11 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
                   />
                 </div>
               </div>
-              
+
               <div className="form-group">
-                <label htmlFor="mediaDescription">{t('admin.events.mediaDescription', 'Описание')}</label>
+                <label htmlFor="mediaDescription">
+                  {t("admin.events.mediaDescription")}
+                </label>
                 <input
                   type="text"
                   id="mediaDescription"
@@ -495,41 +529,41 @@ const AdminEventForm = ({ event, venues, onSave, onCancel }) => {
                   placeholder="Краткое описание медиафайла"
                 />
               </div>
-              
+
               <div className="media-form-actions">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="btn-success btn-sm"
                   onClick={handleAddMedia}
                 >
-                  {t('admin.events.addMedia', 'Добавить')}
+                  {t("admin.events.addMedia")}
                 </button>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="btn-outline btn-sm"
                   onClick={() => setShowMediaForm(false)}
                 >
-                  {t('common.cancel', 'Отмена')}
+                  {t("common.cancel")}
                 </button>
               </div>
             </div>
           ) : (
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="btn-secondary btn-sm"
               onClick={() => setShowMediaForm(true)}
             >
-              {t('admin.events.addNewMedia', 'Добавить медиафайл')}
+              {t("admin.events.addNewMedia")}
             </button>
           )}
         </div>
-        
+
         <div className="form-actions">
           <button type="submit" className="save-button">
-            {event ? t('admin.events.saveChanges', 'Сохранить изменения') : t('admin.events.create', 'Создать')}
+            {event ? t("admin.events.saveChanges") : t("admin.events.create")}
           </button>
           <button type="button" className="cancel-button" onClick={onCancel}>
-            {t('common.cancel', 'Отмена')}
+            {t("common.cancel")}
           </button>
         </div>
       </form>

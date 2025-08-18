@@ -1279,5 +1279,37 @@
     "name": "Тенге",
     "format": "{{amount}} {{symbol}}"
   },
-  "locale": "ru-RU"
+  "locale": "ru-RU",
+  
+  "admin": {
+  "events": {
+    "imageUrlHelp": "Это изображение будет использоваться как основное изображение мероприятия",
+    "musicUrlHelp": "Укажите путь к аудиофайлу из папки public",
+    "musicVolume": "Громкость",
+    "mediaHelp": "Изображения для галереи мероприятия",
+    "mediaTypes": {
+      "image": "Изображение",
+      "video": "Видео", 
+      "audio": "Аудио"
+    },
+    "mediaDescriptionPlaceholder": "Краткое описание медиафайла"
+  },
+  "venues": {
+    "noVenues": "Объекты не найдены",
+    "addressPlaceholder": "Астана, ул. Кунаева, 10",
+    "hideMap": "Скрыть карту",
+    "showMap": "Показать карту"
+  }
+},
+"seatSelection": {
+  "selectSeats": "Выберите места",
+  "rowLabel": "Ряд {{row}}",
+  "seatLabel": "Место {{seat}}"
 }
+  
+  
+}
+
+
+
+

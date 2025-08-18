@@ -86,6 +86,8 @@ const HomePage = () => {
         </div>
       </section>
 
+      
+
       {/* Events Section */}
       <section className="events-section">
         <div className="container">
@@ -128,79 +130,6 @@ const HomePage = () => {
             >
               <span>❯</span>
             </button>
-          </div>
-
-          {/* View All Events Link */}
-          <div className="view-all-container">
-            <Link to="/events" className="view-all-btn">
-              {t("homepage.events.allEvents")}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="features-section">
-        <div className="container">
-          <div className="section-header">
-            <h2>{t("homepage.features.title")}</h2>
-            <p>{t("homepage.features.subtitle")}</p>
-          </div>
-
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">🎯</div>
-              <h3>{t("homepage.features.simpleBooking.title")}</h3>
-              <p>{t("homepage.features.simpleBooking.description")}</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">💳</div>
-              <h3>{t("homepage.features.onlinePayment.title")}</h3>
-              <p>{t("homepage.features.onlinePayment.description")}</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🌍</div>
-              <h3>{t("homepage.features.multilingual.title")}</h3>
-              <p>{t("homepage.features.multilingual.description")}</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">📱</div>
-              <h3>{t("homepage.features.mobileAccess.title")}</h3>
-              <p>{t("homepage.features.mobileAccess.description")}</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🛡️</div>
-              <h3>{t("homepage.features.securePayments.title")}</h3>
-              <p>{t("homepage.features.securePayments.description")}</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">🎧</div>
-              <h3>{t("homepage.features.customerSupport.title")}</h3>
-              <p>{t("homepage.features.customerSupport.description")}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="container">
-          <div className="cta-content">
-            <h2>{t("homepage.cta.title")}</h2>
-            <p>{t("homepage.cta.description")}</p>
-            <div className="cta-buttons">
-              <Link to="/register" className="cta-btn primary">
-                {t("homepage.cta.register")}
-              </Link>
-              <Link to="/events" className="cta-btn secondary">
-                {t("homepage.cta.learnMore")}
-              </Link>
-            </div>
           </div>
         </div>
       </section>

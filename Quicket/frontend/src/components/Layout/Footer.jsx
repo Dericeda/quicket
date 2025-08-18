@@ -41,36 +41,13 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-column">
-            <h4 className="column-title">{t("footer.socialMedia")}</h4>
-            <div className="social-links">
-              <a href="#" className="social-link" aria-label="Facebook">
-                📘
-              </a>
-              <a href="#" className="social-link" aria-label="Instagram">
-                📷
-              </a>
-              <a href="#" className="social-link" aria-label="Twitter">
-                🐦
-              </a>
-              <a href="#" className="social-link" aria-label="Telegram">
-                ✈️
-              </a>
-            </div>
-          </div>
+          
         </div>
 
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="copyright">{t("footer.copyright", { year })}</p>
-            <div className="footer-links-bottom">
-              <Link to="/privacy" className="footer-link">
-                {t("footer.privacyPolicy")}
-              </Link>
-              <Link to="/terms" className="footer-link">
-                {t("footer.termsOfService")}
-              </Link>
-            </div>
+            
           </div>
         </div>
       </div>

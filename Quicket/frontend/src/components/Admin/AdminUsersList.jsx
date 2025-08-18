@@ -1,231 +1,263 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import apiService from '../../services/api';
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import apiService from "../../services/api";
+import AdminVenueForm from "./AdminVenueForm.jsx";
 
-const AdminUsersList = () => {
+const AdminVenuesList = () => {
   const { t } = useTranslation();
-  const [users, setUsers] = useState([]);
+  const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedVenue, setSelectedVenue] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [showRoleModal, setShowRoleModal] = useState(false);
-  const [newRole, setNewRole] = useState('user');
-  
+  const [showMapPreview, setShowMapPreview] = useState(null);
+
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchVenues = async () => {
       try {
-        const response = await apiService.getAllUsers();
-        setUsers(response);
+        const response = await apiService.getVenues();
+        setVenues(response);
         setLoading(false);
       } catch (error) {
-        console.error('Ошибка при загрузке пользователей:', error);
-        setError(t('admin.users.fetchError', 'Ошибка при загрузке пользователей'));
+        console.error("Ошибка при загрузке спортивных объектов:", error);
+        setError(t("admin.venues.fetchError"));
         setLoading(false);
       }
     };
-    
-    fetchUsers();
+
+    fetchVenues();
   }, [t]);
-  
-  // Фильтрация пользователей по поисковому запросу
-  const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  
-  // Обработчик изменения роли пользователя
-  const handleUpdateRole = async () => {
-    if (!selectedUser) return;
-    
+
+  // Обработчик создания/обновления места проведения
+  const handleSaveVenue = async (venueData) => {
     setLoading(true);
-    
+
     try {
-      const response = await apiService.updateUserRole(selectedUser.id, newRole);
-      
+      let response;
+
+      if (selectedVenue) {
+        // Обновление существующего места проведения
+        response = await apiService.updateVenue(selectedVenue.id, venueData);
+      } else {
+        // Создание нового места проведения
+        response = await apiService.createVenue(venueData);
+      }
+
       if (response.success) {
-        // Обновляем список пользователей
-        setUsers(users.map(user => 
-          user.id === selectedUser.id ? { ...user, role: newRole } : user
-        ));
-        
-        setShowRoleModal(false);
-        setSelectedUser(null);
+        // Обновляем список мест проведения
+        const venuesResponse = await apiService.getVenues();
+        setVenues(venuesResponse);
+
+        setShowForm(false);
+        setSelectedVenue(null);
         setError(null);
       } else {
-        setError(response.message || t('admin.users.roleUpdateError', 'Ошибка при обновлении роли'));
+        setError(response.message || t("admin.venues.saveError"));
       }
     } catch (error) {
-      console.error('Ошибка при обновлении роли:', error);
-      setError(t('admin.users.roleUpdateError', 'Ошибка при обновлении роли'));
+      console.error("Ошибка при сохранении места проведения:", error);
+      setError(t("admin.venues.saveError"));
     } finally {
       setLoading(false);
     }
   };
-  
-  // Обработчик удаления пользователя
-  const handleDeleteUser = async (userId) => {
-    if (window.confirm(t('admin.users.confirmDelete', 'Вы уверены, что хотите удалить этого пользователя? Это действие нельзя отменить.'))) {
+
+  // Обработчик удаления места проведения
+  const handleDeleteVenue = async (venueId) => {
+    if (window.confirm(t("admin.venues.confirmDelete"))) {
       setLoading(true);
-      
+
       try {
-        const response = await apiService.deleteUser(userId);
-        
+        const response = await apiService.deleteVenue(venueId);
+
         if (response.success) {
-          // Обновляем список пользователей
-          setUsers(users.filter(user => user.id !== userId));
+          // Обновляем список мест проведения после удаления
+          setVenues(venues.filter((venue) => venue.id !== venueId));
         } else {
-          setError(response.message || t('admin.users.deleteError', 'Ошибка при удалении пользователя'));
+          setError(response.message || t("admin.venues.deleteError"));
         }
       } catch (error) {
-        console.error('Ошибка при удалении пользователя:', error);
-        setError(t('admin.users.deleteError', 'Ошибка при удалении пользователя'));
+        console.error("Ошибка при удалении места проведения:", error);
+        setError(t("admin.venues.deleteError"));
       } finally {
         setLoading(false);
       }
     }
   };
-  
-  // Форматирование даты
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleString();
+
+  // Показать предпросмотр карты
+  const toggleMapPreview = (venue) => {
+    if (showMapPreview === venue.id) {
+      setShowMapPreview(null);
+    } else {
+      setShowMapPreview(venue.id);
+    }
   };
-  
+
+  // Фильтрация мест проведения по поисковому запросу
+  const filteredVenues = venues.filter(
+    (venue) =>
+      venue.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      venue.address.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="admin-users-container">
+    <div className="admin-venues-container">
+      <div className="admin-venues-header">
+        <h2>{t("admin.venues.title")}</h2>
+        <button
+          className="admin-add-button"
+          onClick={() => {
+            setSelectedVenue(null);
+            setShowForm(true);
+          }}
+        >
+          {t("admin.venues.createVenue")}
+        </button>
+      </div>
+
       {error && (
         <div className="admin-alert error">
           {error}
-          <button 
-            className="admin-alert-close"
-            onClick={() => setError(null)}
-          >
+          <button className="admin-alert-close" onClick={() => setError(null)}>
             ×
           </button>
         </div>
       )}
-      
+
       <div className="admin-filters">
         <div className="admin-filter-group full-width">
-          <label htmlFor="search">{t('admin.users.search', 'Поиск')}</label>
+          <label htmlFor="search">{t("admin.events.search")}</label>
           <input
             type="text"
             id="search"
-            placeholder={t('admin.users.searchPlaceholder', 'Поиск по имени или email...')}
+            placeholder="Поиск по названию или адресу..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
-      
+
       {loading ? (
         <div className="admin-loading">
           <div className="spinner"></div>
-          <p>{t('common.loading', 'Загрузка...')}</p>
+          <p>{t("common.loading")}</p>
         </div>
       ) : (
         <div className="admin-table-responsive">
-          {filteredUsers.length === 0 ? (
-            <p className="admin-no-data">{t('admin.users.noUsers', 'Пользователи не найдены')}</p>
+          {filteredVenues.length === 0 ? (
+            <p className="admin-no-data">Объекты не найдены</p>
           ) : (
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>{t('admin.users.id', 'ID')}</th>
-                  <th>{t('admin.users.username', 'Имя пользователя')}</th>
-                  <th>{t('admin.users.email', 'Email')}</th>
-                  <th>{t('admin.users.role', 'Роль')}</th>
-                  <th>{t('admin.users.createdAt', 'Дата регистрации')}</th>
-                  <th className="actions-column">{t('admin.users.actions', 'Действия')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredUsers.map(user => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td className="username-cell">{user.username}</td>
-                    <td className="email-cell">{user.email}</td>
-                    <td>
-                      <span className={`user-role ${user.role}`}>
-                        {user.role === 'admin' ? 'Администратор' : 'Пользователь'}
-                      </span>
-                    </td>
-                    <td>{formatDate(user.created_at)}</td>
-                    <td className="actions-cell">
-                      <button 
-                        className="admin-action-button edit"
-                        onClick={() => {
-                          setSelectedUser(user);
-                          setNewRole(user.role);
-                          setShowRoleModal(true);
-                        }}
-                        title={t('admin.users.changeRole', 'Изменить роль')}
-                      >
-                        👑
-                      </button>
-                      <button 
-                        className="admin-action-button delete"
-                        onClick={() => handleDeleteUser(user.id)}
-                        title={t('admin.users.delete', 'Удалить')}
-                      >
-                        🗑️
-                      </button>
-                    </td>
+            <>
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>{t("admin.users.id")}</th>
+                    <th>{t("admin.events.nameField")}</th>
+                    <th>{t("admin.events.addressField")}</th>
+                    <th>{t("admin.venues.capacity")}</th>
+                    <th>{t("admin.venues.eventsCount")}</th>
+                    <th>{t("admin.venues.map")}</th>
+                    <th className="actions-column">
+                      {t("admin.events.actions")}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filteredVenues.map((venue) => (
+                    <React.Fragment key={venue.id}>
+                      <tr>
+                        <td>{venue.id}</td>
+                        <td className="venue-name-cell">{venue.name}</td>
+                        <td className="venue-address-cell">{venue.address}</td>
+                        <td>{venue.capacity}</td>
+                        <td>{venue.events ? venue.events.length : 0}</td>
+                        <td>
+                          {venue.map_widget_code ? (
+                            <button
+                              className="btn-secondary btn-sm"
+                              onClick={() => toggleMapPreview(venue)}
+                            >
+                              {showMapPreview === venue.id
+                                ? "Скрыть карту"
+                                : "Показать карту"}
+                            </button>
+                          ) : (
+                            <span className="text-muted">Нет карты</span>
+                          )}
+                        </td>
+                        <td className="actions-cell">
+                          <button
+                            className="admin-action-button edit"
+                            onClick={() => {
+                              setSelectedVenue(venue);
+                              setShowForm(true);
+                            }}
+                            title="Редактировать"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            className="admin-action-button delete"
+                            onClick={() => handleDeleteVenue(venue.id)}
+                            title="Удалить"
+                          >
+                            🗑️
+                          </button>
+                          <button
+                            className="admin-action-button view"
+                            onClick={() =>
+                              window.open(`/venues/${venue.id}`, "_blank")
+                            }
+                            title="Просмотр"
+                          >
+                            👁️
+                          </button>
+                        </td>
+                      </tr>
+                      {showMapPreview === venue.id && venue.map_widget_code && (
+                        <tr className="map-preview-row">
+                          <td colSpan="7">
+                            <div className="map-preview-container">
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: venue.map_widget_code,
+                                }}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </>
           )}
         </div>
       )}
-      
-      {/* Модальное окно для изменения роли */}
-      {showRoleModal && selectedUser && (
+
+      {showForm && (
         <div className="admin-modal">
-          <div className="admin-modal-content admin-modal-small">
-            <button 
+          <div className="admin-modal-content">
+            <button
               className="admin-modal-close"
               onClick={() => {
-                setShowRoleModal(false);
-                setSelectedUser(null);
+                setShowForm(false);
+                setSelectedVenue(null);
               }}
             >
               ×
             </button>
-            <h3>{t('admin.users.changeRoleTitle', 'Изменение роли пользователя')}</h3>
-            <p>{t('admin.users.changeRoleDescription', 'Пользователь')}: <strong>{selectedUser.username}</strong></p>
-            
-            <div className="admin-form-group">
-              <label htmlFor="role">{t('admin.users.newRole', 'Новая роль')}</label>
-              <select
-                id="role"
-                value={newRole}
-                onChange={(e) => setNewRole(e.target.value)}
-              >
-                <option value="user">{t('admin.users.roleUser', 'Пользователь')}</option>
-                <option value="admin">{t('admin.users.roleAdmin', 'Администратор')}</option>
-              </select>
-            </div>
-            
-            <div className="admin-modal-actions">
-              <button 
-                className="admin-button primary"
-                onClick={handleUpdateRole}
-                disabled={loading}
-              >
-                {loading ? t('common.loading', 'Загрузка...') : t('admin.users.saveRole', 'Сохранить')}
-              </button>
-              <button 
-                className="admin-button secondary"
-                onClick={() => {
-                  setShowRoleModal(false);
-                  setSelectedUser(null);
-                }}
-                disabled={loading}
-              >
-                {t('common.cancel', 'Отмена')}
-              </button>
-            </div>
+            <AdminVenueForm
+              venue={selectedVenue}
+              onSave={handleSaveVenue}
+              onCancel={() => {
+                setShowForm(false);
+                setSelectedVenue(null);
+              }}
+            />
           </div>
         </div>
       )}
@@ -233,4 +265,4 @@ const AdminUsersList = () => {
   );
 };
 
-export default AdminUsersList;
+export default AdminVenuesList;
